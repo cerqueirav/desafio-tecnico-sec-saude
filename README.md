@@ -77,10 +77,10 @@ O corpo da requisição (body) deve ser um objeto JSON com os seguintes campos:
 - Endereço (obrigatório): O endereço completo do usuário, contendo os dados a seguir:
   - Logradouro, 
   - Complemento, 
-  - Número, 
+  - Numero, 
   - Cidade,
   - Estado, 
-  - País
+  - Pais
   - CEP 
  
 Exemplo:
@@ -106,10 +106,10 @@ Exemplo:
     "Endereco": {
       "Logradouro" : "Rua da Alegria", 
       "Complemento": "Apartamento 905", 
-      "Número": "88", 
+      "Numero": "88", 
       "Cidade": "Salvador",
       "Estado": "Bahia", 
-      "País": "Brasil",
+      "Pais": "Brasil",
       "CEP": "40387987" 
     }
 }
