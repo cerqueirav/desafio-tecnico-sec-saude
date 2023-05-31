@@ -202,9 +202,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Content Include="NHibernate\Mappings\Usuario.hbm.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Compile Include="NHibernate\Mappings\UsuarioMap.cs" />
     <Compile Include="Usuarios\DTO\UsuarioDTO.cs" />
     <Compile Include="Usuarios\Model\Usuario.cs" />

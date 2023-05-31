@@ -49,7 +49,7 @@ namespace DesafioTecnicoSecSaude.Usuarios.Controller
 
         private bool ValidarCampos(UsuarioDTO usuarioDTO)
         {
-            return false;
+            return true;
         }
 
         #endregion
