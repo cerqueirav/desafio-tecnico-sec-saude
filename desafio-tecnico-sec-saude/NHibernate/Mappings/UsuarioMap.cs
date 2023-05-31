@@ -14,8 +14,14 @@ namespace DesafioTecnicoSecSaude.NHibernate.Mappings
             Table("Usuario");
             Id(u => u.Id);
             Map(u => u.Nome);
+            Map(u => u.Email);
+            Map(u => u.Senha);
             Map(u => u.CPF);
             Map(u => u.DataNascimento);
+            Map(u => u.Telefones);
+            Map(u => u.Perfil);
+            Map(u => u.Endereco);   
+            Map(u => u.DataCriacao);   
         }
     }
 }
