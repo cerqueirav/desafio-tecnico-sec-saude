@@ -15,14 +15,24 @@ namespace DesafioTecnicoSecSaude
         public void LoadNHibernate()
         {
             UsuarioController controller = new UsuarioController();
-            var usuarios = controller.ListarTodos();
+            // Lista todos os usuários
+            //var usuarios = controller.ListarTodos();
+
+            // Busca o usuário pelo Id
             //var usuario = controller.ListarPorId(3);
-            //controller.Cadastrar(GetUsuarioMock());
-            //controller.Atualizar(GetUsuarioMock(), 1);
-            //controller.Deletar(2);
+
+            // Cadastro do usuário
+            //controller.Cadastrar(GetUsuarioCadastrarMock());
+
+            // Edição do usuário
+            //controller.Atualizar(GetUsuarioAtualizarMock(), 3);
+
+            // Exclusão do usuário
+            //TODO: Implementar exclusão em um dos modos: Cascade, Set Null or Set Default
+            //controller.Deletar(3);
         }
 
-        public UsuarioDTO GetUsuarioMock()
+        public UsuarioDTO GetUsuarioCadastrarMock()
         {
             return new UsuarioDTO()
             {
@@ -34,6 +44,17 @@ namespace DesafioTecnicoSecSaude
                 Telefones = "71991087353",
                 Perfil = "Administrador",
                 Endereco = "Rua da Bolivia, 345, 40875322"
+            };
+        }
+
+        public UsuarioDTO GetUsuarioAtualizarMock()
+        {
+            return new UsuarioDTO()
+            {
+                Nome = "Victor Lima Cerqueira",
+                Telefones = "71991087353",
+                Perfil = "Operador",
+                Endereco = "Rua Direta de São Marcos, 55, 40324494"
             };
         }
     }
