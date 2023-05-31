@@ -15,7 +15,11 @@ namespace DesafioTecnicoSecSaude
         public void LoadNHibernate()
         {
             UsuarioController controller = new UsuarioController();
-            controller.Cadastrar(GetUsuarioMock());
+            var usuarios = controller.ListarTodos();
+            //var usuario = controller.ListarPorId(3);
+            //controller.Cadastrar(GetUsuarioMock());
+            //controller.Atualizar(GetUsuarioMock(), 1);
+            //controller.Deletar(2);
         }
 
         public UsuarioDTO GetUsuarioMock()
