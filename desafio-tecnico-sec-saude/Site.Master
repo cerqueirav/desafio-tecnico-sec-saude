@@ -1,4 +1,4 @@
-﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="desafio_tecnico_sec_saude.SiteMaster" %>
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="DesafioTecnicoSecSaude.SiteMaster" %>
 
 <!DOCTYPE html>
 

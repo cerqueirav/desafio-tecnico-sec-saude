@@ -7,7 +7,7 @@ using System.Web.Routing;
 using System.Web.Security;
 using System.Web.SessionState;
 
-namespace desafio_tecnico_sec_saude
+namespace DesafioTecnicoSecSaude
 {
     public class Global : HttpApplication
     {

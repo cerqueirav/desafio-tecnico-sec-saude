@@ -7,7 +7,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Microsoft.AspNet.FriendlyUrls.Resolvers;
 
-namespace desafio_tecnico_sec_saude
+namespace DesafioTecnicoSecSaude
 {
     public partial class ViewSwitcher : System.Web.UI.UserControl
     {

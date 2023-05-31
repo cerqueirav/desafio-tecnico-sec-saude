@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.Optimization;
 using System.Web.UI;
 
-namespace desafio_tecnico_sec_saude
+namespace DesafioTecnicoSecSaude
 {
     public class BundleConfig
     {

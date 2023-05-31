@@ -1,7 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 
-namespace desafio_tecnico_sec_saude.Tests
+namespace DesafioTecnicoSecSaude.Tests
 {
     [TestClass]
     public class UnitTest1

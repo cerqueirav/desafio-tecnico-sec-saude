@@ -7,7 +7,7 @@
 // </gerado automaticamente>
 //------------------------------------------------------------------------------
 
-namespace desafio_tecnico_sec_saude
+namespace DesafioTecnicoSecSaude
 {
 
 

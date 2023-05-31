@@ -4,7 +4,7 @@ using System.Web;
 using System.Web.Routing;
 using Microsoft.AspNet.FriendlyUrls;
 
-namespace desafio_tecnico_sec_saude
+namespace DesafioTecnicoSecSaude
 {
     public static class RouteConfig
     {

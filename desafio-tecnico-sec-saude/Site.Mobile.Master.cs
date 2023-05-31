@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace desafio_tecnico_sec_saude
+namespace DesafioTecnicoSecSaude
 {
     public partial class Site_Mobile : System.Web.UI.MasterPage
     {
