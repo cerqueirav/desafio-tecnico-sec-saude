@@ -29,3 +29,10 @@ textarea {
         padding: 0;
     }
 }
+
+.navbar {
+    background-color: #054F77; /* Define a cor de fundo como azul */
+    color: white; /* Define a cor do texto como branco */
+    padding: 10px; /* Define o espaçamento interno */
+    /* Adicione outras propriedades de estilo, se necessário */
+}

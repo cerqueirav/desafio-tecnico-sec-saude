@@ -1,5 +1,4 @@
-﻿using DesafioTecnicoSecSaude.Usuarios.Controller;
-using DesafioTecnicoSecSaude.Usuarios.DTO;
+﻿using DesafioTecnicoSecSaude.Usuarios.DTO;
 using System;
 using System.Web.UI;
 
@@ -14,7 +13,7 @@ namespace DesafioTecnicoSecSaude
 
         public void LoadNHibernate()
         {
-            UsuarioController controller = new UsuarioController();
+            //UsuarioController controller = new UsuarioController();
             // Lista todos os usuários
             //var usuarios = controller.ListarTodos();
 

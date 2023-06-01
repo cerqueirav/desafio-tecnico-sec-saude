@@ -9,7 +9,6 @@ namespace DesafioTecnicoSecSaude.Usuarios.Controller
 {
     public class UsuarioController
     {
-
         public void Cadastrar(UsuarioDTO usuarioDTO)
         {
             if (this.ValidarCamposCadastro(usuarioDTO))
@@ -131,6 +130,7 @@ namespace DesafioTecnicoSecSaude.Usuarios.Controller
         // Métodos de validação
         private bool ValidarCamposCadastro(UsuarioDTO usuarioDTO)
         {
+            //TODO: Adicionar validações dos campos
             return true;
         }
 
