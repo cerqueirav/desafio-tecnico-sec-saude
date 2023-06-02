@@ -10,7 +10,7 @@ namespace DesafioTecnicoSecSaude.Usuarios.Model
         public virtual string Senha { get; set; }
         public virtual string CPF { get; set; }
         public virtual DateTime DataCriacao { get; set; }
-        public virtual DateTime DataAtualizacao { get; set; }
+        public virtual DateTime? DataAtualizacao { get; set; }
         public virtual DateTime DataNascimento { get; set; }
         public virtual string Telefones { get; set; }
         public virtual string Perfil { get; set; }

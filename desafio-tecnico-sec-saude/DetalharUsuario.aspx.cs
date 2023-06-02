@@ -56,7 +56,12 @@ namespace DesafioTecnicoSecSaude
                     DateTime dataPadrao = new DateTime(0001, 1, 1, 0, 0, 0);
 
                     if (usuario.DataAtualizacao != dataPadrao)
-                        dataAtualizacao.Text = usuario.DataAtualizacao.ToString("dd/MM/yyyy HH:mm");
+                    {
+                        if (usuario.DataAtualizacao.HasValue)
+                        {
+                            dataAtualizacao.Text = usuario.DataAtualizacao.Value.ToString("dd/MM/yyyy HH:mm");
+                        }
+                    }
                     else
                         dataAtualizacao.Text = "N/A";
                 }

@@ -57,9 +57,9 @@
                     <label for="dropPerfis">Perfil</label>
                     <asp:DropDownList class="form-control" ID="dropPerfis" runat="server">
                         <asp:ListItem Text="" Value="-1"></asp:ListItem>
-                        <asp:ListItem Text="Administrador" Value="1"> </asp:ListItem>
-                        <asp:ListItem Text="Supervisor" Value="2"> </asp:ListItem>
-                        <asp:ListItem Text="Operador" Value="3"> </asp:ListItem>
+                        <asp:ListItem Text="Administrador" Value="Administrador"> </asp:ListItem>
+                        <asp:ListItem Text="Supervisor" Value="Supervisor"> </asp:ListItem>
+                        <asp:ListItem Text="Operador" Value="Operador"> </asp:ListItem>
                     </asp:DropDownList>
                     <asp:Label ID="perfilErro" runat="server" Text="" ForeColor="Red" Font-Size="Small"></asp:Label>
                 </div>

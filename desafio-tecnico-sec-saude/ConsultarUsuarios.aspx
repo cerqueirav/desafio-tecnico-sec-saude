@@ -5,11 +5,12 @@
     <h2>Listagem de Usuários</h2>
     <div class="table-responsive">
         <asp:GridView ID="grdDados" runat="server" AutoGenerateColumns="false" OnRowCommand="grdDados_RowCommand" CssClass="table table-striped">
+            <HeaderStyle BackColor="#2e6da4" ForeColor="White" Font-Bold="true" />
             <Columns>
                 <asp:BoundField DataField="Nome" HeaderText="Nome" />
                 <asp:BoundField DataField="Email" HeaderText="Email" />
                 <asp:BoundField DataField="CPF" HeaderText="CPF" />
-                <asp:BoundField DataField="DataNascimento" HeaderText="Data de Nascimento" />
+                <asp:BoundField DataField="DataNascimento" HeaderText="Data de Nascimento" DataFormatString="{0:dd/MM/yyyy}" />
                 <asp:BoundField DataField="Perfil" HeaderText="Perfil" />
                 <asp:TemplateField>
                    <ItemTemplate>

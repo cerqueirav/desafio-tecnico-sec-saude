@@ -26,6 +26,7 @@ namespace DesafioTecnicoSecSaude.Usuarios.Controller
                             CPF = usuarioDTO.CPF,
                             DataCriacao = DateTime.Now,
                             DataNascimento = usuarioDTO.DataNascimento,
+                            DataAtualizacao = null,
                             Telefones = usuarioDTO.Telefones,
                             Perfil = usuarioDTO.Perfil,
                             Endereco = usuarioDTO.Endereco
