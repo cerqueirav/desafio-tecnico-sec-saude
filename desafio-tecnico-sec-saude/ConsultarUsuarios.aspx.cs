@@ -26,8 +26,19 @@ namespace DesafioTecnicoSecSaude
             {
                 string usuarioId = e.CommandArgument.ToString();
                 if (!String.IsNullOrEmpty(usuarioId))
+                    this.Response.Redirect("EditarUsuario.aspx?usuarioId=" + usuarioId);
+            }
+
+            if (e.CommandName.Equals("Detalhar"))
+            {
+                string usuarioId = e.CommandArgument.ToString();
+                if (!String.IsNullOrEmpty(usuarioId))
                     this.Response.Redirect("DetalharUsuario.aspx?usuarioId=" + usuarioId);
             }
+        }
+        protected void CadastroUsuario_Click(object sender, EventArgs e)
+        {
+            this.Response.Redirect("CadastrarUsuario.aspx");
         }
     }
 }

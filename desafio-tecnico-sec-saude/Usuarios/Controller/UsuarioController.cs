@@ -1,6 +1,7 @@
 ﻿using DesafioTecnicoSecSaude.NHibernate;
 using DesafioTecnicoSecSaude.Usuarios.DTO;
 using DesafioTecnicoSecSaude.Usuarios.Model;
+using DesafioTecnicoSecSaude.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,7 +24,7 @@ namespace DesafioTecnicoSecSaude.Usuarios.Controller
                             Email = usuarioDTO.Email,
                             Senha = usuarioDTO.Senha,
                             CPF = usuarioDTO.CPF,
-                            DataCriacao = DateTime.Now.ToString(),
+                            DataCriacao = DateTime.Now,
                             DataNascimento = usuarioDTO.DataNascimento,
                             Telefones = usuarioDTO.Telefones,
                             Perfil = usuarioDTO.Perfil,
@@ -149,7 +150,7 @@ namespace DesafioTecnicoSecSaude.Usuarios.Controller
             if (!String.IsNullOrEmpty(usuarioAtualizado.CPF))
                 usuarioAtual.CPF = usuarioAtualizado.CPF;
 
-            if (!String.IsNullOrEmpty(usuarioAtualizado.DataNascimento))
+            if (Validation.ValidarData(usuarioAtualizado.DataNascimento.ToString()))
                 usuarioAtual.DataNascimento = usuarioAtualizado.DataNascimento;
 
             if (!String.IsNullOrEmpty(usuarioAtualizado.Telefones))
@@ -161,7 +162,7 @@ namespace DesafioTecnicoSecSaude.Usuarios.Controller
             if (!String.IsNullOrEmpty(usuarioAtualizado.Endereco))
                 usuarioAtual.Endereco = usuarioAtualizado.Endereco;
 
-            usuarioAtual.DataAtualizacao = DateTime.Now.ToString();
+            usuarioAtual.DataAtualizacao = DateTime.Now;
         }
 
         #endregion

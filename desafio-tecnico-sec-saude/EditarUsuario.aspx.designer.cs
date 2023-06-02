@@ -11,7 +11,7 @@ namespace DesafioTecnicoSecSaude
 {
 
 
-    public partial class DetalharUsuario
+    public partial class EditarUsuario
     {
 
         /// <summary>
@@ -24,6 +24,15 @@ namespace DesafioTecnicoSecSaude
         protected global::System.Web.UI.WebControls.TextBox nome;
 
         /// <summary>
+        /// Controle nomeErro.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label nomeErro;
+
+        /// <summary>
         /// Controle email.
         /// </summary>
         /// <remarks>
@@ -31,6 +40,15 @@ namespace DesafioTecnicoSecSaude
         /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox email;
+
+        /// <summary>
+        /// Controle emailErro.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label emailErro;
 
         /// <summary>
         /// Controle cpf.
@@ -42,6 +60,15 @@ namespace DesafioTecnicoSecSaude
         protected global::System.Web.UI.WebControls.TextBox cpf;
 
         /// <summary>
+        /// Controle cpfErro.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label cpfErro;
+
+        /// <summary>
         /// Controle senha.
         /// </summary>
         /// <remarks>
@@ -49,6 +76,15 @@ namespace DesafioTecnicoSecSaude
         /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox senha;
+
+        /// <summary>
+        /// Controle senhaErro.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label senhaErro;
 
         /// <summary>
         /// Controle dataNascimento.
@@ -60,6 +96,15 @@ namespace DesafioTecnicoSecSaude
         protected global::System.Web.UI.WebControls.TextBox dataNascimento;
 
         /// <summary>
+        /// Controle dataNascimentoErro.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label dataNascimentoErro;
+
+        /// <summary>
         /// Controle dropPerfis.
         /// </summary>
         /// <remarks>
@@ -67,6 +112,15 @@ namespace DesafioTecnicoSecSaude
         /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList dropPerfis;
+
+        /// <summary>
+        /// Controle perfilErro.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label perfilErro;
 
         /// <summary>
         /// Controle telefone.
@@ -78,6 +132,15 @@ namespace DesafioTecnicoSecSaude
         protected global::System.Web.UI.WebControls.TextBox telefone;
 
         /// <summary>
+        /// Controle telefoneErro.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label telefoneErro;
+
+        /// <summary>
         /// Controle endereco.
         /// </summary>
         /// <remarks>
@@ -87,30 +150,21 @@ namespace DesafioTecnicoSecSaude
         protected global::System.Web.UI.WebControls.TextBox endereco;
 
         /// <summary>
-        /// Controle dataCriacao.
+        /// Controle enderecoErro.
         /// </summary>
         /// <remarks>
         /// Campo gerado automaticamente.
         /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox dataCriacao;
+        protected global::System.Web.UI.WebControls.Label enderecoErro;
 
         /// <summary>
-        /// Controle dataAtualizacao.
+        /// Controle SalvarEdicao.
         /// </summary>
         /// <remarks>
         /// Campo gerado automaticamente.
         /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox dataAtualizacao;
-
-        /// <summary>
-        /// Controle btnVoltar.
-        /// </summary>
-        /// <remarks>
-        /// Campo gerado automaticamente.
-        /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnVoltar;
+        protected global::System.Web.UI.WebControls.Button SalvarEdicao;
     }
 }

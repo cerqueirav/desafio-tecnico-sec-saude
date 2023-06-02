@@ -22,6 +22,7 @@ namespace DesafioTecnicoSecSaude.NHibernate.Mappings
             Map(u => u.Perfil);
             Map(u => u.Endereco);   
             Map(u => u.DataCriacao);   
+            Map(u => u.DataAtualizacao);   
         }
     }
 }

@@ -1,10 +1,10 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="DetalharUsuario.aspx.cs" Inherits="DesafioTecnicoSecSaude.DetalharUsuario" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="CadastrarUsuario.aspx.cs" Inherits="DesafioTecnicoSecSaude.CadastrarUsuario" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <div class="container">
         <hr />
-        <h3 class="my-3">Detalhes do Usuário</h3> 
-        
+        <h3 class="my-3">Cadastro de Usuário</h3> 
+          
         <div class="row">
             <div class="col-lg-12">
                 <fieldset>
@@ -15,47 +15,53 @@
             <div class="col-lg-6">
                 <div class="form-group">
                     <label for="nome">Nome</label>
-                    <asp:TextBox class="form-control" type="text" ID="nome" runat="server" Enabled="false"></asp:TextBox>
+                    <asp:TextBox class="form-control" type="text" ID="nome" runat="server"></asp:TextBox>
+                    <asp:Label ID="nomeErro" runat="server" Text="" ForeColor="Red" Font-Size="Small"></asp:Label>
                 </div>
             </div>
 
             <div class="col-md-6">
                 <div class="form-group">
                     <label for="email">Email</label>
-                    <asp:TextBox class="form-control" type="email" ID="email" runat="server" Enabled="false"></asp:TextBox>
+                    <asp:TextBox class="form-control" type="email" ID="email" runat="server"></asp:TextBox>
+                    <asp:Label ID="emailErro" runat="server" Text="" ForeColor="Red" Font-Size="Small"></asp:Label>
                 </div>
             </div>
 
             <div class="col-md-6">
                 <div class="form-group">
                     <label for="cpf">CPF</label>
-                    <asp:TextBox class="form-control" type="text" ID="cpf" runat="server" Enabled="false"></asp:TextBox>
+                    <asp:TextBox class="form-control" type="text" ID="cpf" runat="server"></asp:TextBox>
+                    <asp:Label ID="cpfErro" runat="server" Text="" ForeColor="Red" Font-Size="Small"></asp:Label>
                 </div>
             </div>
 
             <div class="col-md-6">
                 <div class="form-group">
                     <label for="senha">Senha</label>
-                    <asp:TextBox class="form-control" type="password" ID="senha" runat="server" Enabled="false"></asp:TextBox>
+                    <asp:TextBox class="form-control" type="password" ID="senha" runat="server"></asp:TextBox>
+                    <asp:Label ID="senhaErro" runat="server" Text="" ForeColor="Red" Font-Size="Small"></asp:Label>
                 </div>
             </div>
             
             <div class="col-md-6">
                 <div class="form-group">
                     <label for="dataNascimento">Data de Nascimento</label>
-                    <asp:TextBox class="form-control" type="datetime" ID="dataNascimento" runat="server" Enabled="false"></asp:TextBox>
+                    <asp:TextBox class="form-control" type="date" ID="dataNascimento" runat="server"></asp:TextBox>
+                    <asp:Label ID="dataNascimentoErro" runat="server" Text="" ForeColor="Red" Font-Size="Small"></asp:Label>
                 </div>
             </div>
 
             <div class="col-md-6">
                 <div class="form-group">
                     <label for="dropPerfis">Perfil</label>
-                    <asp:DropDownList class="form-control" ID="dropPerfis" runat="server" Enabled="false">
+                    <asp:DropDownList class="form-control" ID="dropPerfis" runat="server">
                         <asp:ListItem Text="" Value="-1"></asp:ListItem>
                         <asp:ListItem Text="Administrador" Value="1"> </asp:ListItem>
                         <asp:ListItem Text="Supervisor" Value="2"> </asp:ListItem>
                         <asp:ListItem Text="Operador" Value="3"> </asp:ListItem>
                     </asp:DropDownList>
+                    <asp:Label ID="perfilErro" runat="server" Text="" ForeColor="Red" Font-Size="Small"></asp:Label>
                 </div>
             </div>
         </div>
@@ -69,7 +75,8 @@
             <div class="col-md-6">
                 <div class="form-group">
                     <label for="telefone">Telefone</label>
-                    <asp:TextBox class="form-control" type="text" ID="telefone" runat="server" Enabled="false"></asp:TextBox>
+                    <asp:TextBox class="form-control" type="text" ID="telefone" runat="server"></asp:TextBox>
+                    <asp:Label ID="telefoneErro" runat="server" Text="" ForeColor="Red" Font-Size="Small"></asp:Label>
                 </div>
             </div>
         </div>
@@ -83,34 +90,14 @@
             <div class="col-md-6">
                 <div class="form-group">
                     <label for="endereco">Endereço</label>
-                    <asp:TextBox class="form-control" type="text" ID="endereco" runat="server" Enabled="false"></asp:TextBox>
+                    <asp:TextBox class="form-control" type="text" ID="endereco" runat="server"></asp:TextBox>
+                    <asp:Label ID="enderecoErro" runat="server" Text="" ForeColor="Red" Font-Size="Small"></asp:Label>
                 </div>
             </div>  
         </div>
 
-        <div class="row">
-            <div class="col-lg-12">
-                <fieldset>
-                    <legend> Cadastro</legend>
-                </fieldset>
-            </div>
-            <div class="col-md-4">
-                <div class="form-group">
-                    <label for="dataCriacao">Data de Criação</label>
-                    <asp:TextBox class="form-control" type="datetime" ID="dataCriacao" runat="server" Enabled="false"></asp:TextBox>
-                </div>
-            </div>
-
-            <div class="col-md-4">
-                <div class="form-group">
-                    <label for="dataAtualizacao">Data de Atualização</label>
-                    <asp:TextBox class="form-control" type="datetime" ID="dataAtualizacao" runat="server" Enabled="false"></asp:TextBox>
-                </div>
-            </div>
-        </div>
-
         <div class="col-md-12" style="padding:unset">
-            <asp:Button ID="btnVoltar" runat="server" Text="Voltar" CssClass="btn bg-gradient-secondary w-100 mt-2 mb-4" OnClick="btnVoltar_Click" />
+            <asp:Button ID="EnviarCadastro" runat="server" Text="Enviar" CssClass="btn bg-gradient-info w-100 mt-2 mb-4 " OnClick="CadastrarUsuario_Click" />
         </div>
     </div>
 </asp:Content>
