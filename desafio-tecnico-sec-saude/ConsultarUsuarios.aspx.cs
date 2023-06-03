@@ -11,6 +11,7 @@ namespace DesafioTecnicoSecSaude
         {
             if (!Page.IsPostBack)
             {
+                Session.Clear();
                 var listaUsuarios = new UsuarioController().ListarTodos();
                 if (listaUsuarios != null && listaUsuarios.Count > 0)
                 {

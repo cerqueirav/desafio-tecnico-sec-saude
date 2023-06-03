@@ -3,6 +3,8 @@ using DesafioTecnicoSecSaude.Usuarios.DTO;
 using DesafioTecnicoSecSaude.Utils;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace DesafioTecnicoSecSaude
@@ -13,51 +15,76 @@ namespace DesafioTecnicoSecSaude
         {
             if (!IsPostBack)
                 SetSessionContatos(new List<ContatoDTO>());
-            
         }
         protected void CadastrarUsuario_Click(object sender, EventArgs e)
         {
             if (FormularioInvalido())
                 return;
-           
-            UsuarioController usuarioController = new UsuarioController();
-
-            EnderecoDTO endereco = new EnderecoDTO()
+            try
             {
-                CEP = cep.Text,
-                Logradouro = logradouro.Text,
-                Complemento = complemento.Text,
-                Numero = numero.Text,
-                Cidade = cidade.Text,
-                Estado = estado.Text,
-                Pais = pais.Text,
-            };
+                UsuarioController usuarioController = new UsuarioController();
 
-            UsuarioDTO usuarioDTO = new UsuarioDTO()
+                EnderecoDTO endereco = new EnderecoDTO()
+                {
+                    CEP = cep.Text,
+                    Logradouro = logradouro.Text,
+                    Complemento = complemento.Text,
+                    Numero = numero.Text,
+                    Cidade = cidade.Text,
+                    Estado = estado.Text,
+                    Pais = pais.Text,
+                };
+
+                UsuarioDTO usuarioDTO = new UsuarioDTO()
+                {
+                    Nome = nome.Text,
+                    Email = email.Text,
+                    Senha = senha.Text,
+                    CPF = cpf.Text,
+                    DataNascimento = DateTime.Parse(dataNascimento.Text),
+                    Perfil = dropPerfis.SelectedValue,
+                    Contatos = GetSessionContatos(),
+                    Endereco = endereco
+                };
+
+                usuarioController.Cadastrar(usuarioDTO);
+                ScriptManager.RegisterStartupScript(this, GetType(), "UsuarioCadastrado", "Swal.fire('Usuário cadastrado!', 'O usuário foi cadastrado com sucesso!', 'success');", true);
+            }
+            catch(Exception)
             {
-                Nome = nome.Text,
-                Email = email.Text,
-                Senha = senha.Text,
-                CPF = cpf.Text,
-                DataNascimento = DateTime.Parse(dataNascimento.Text),
-                Perfil = dropPerfis.SelectedValue,
-                Contatos = GetSessionContatos(),
-                Endereco = endereco
-            };
-
-            usuarioController.Cadastrar(usuarioDTO);
+                ScriptManager.RegisterStartupScript(this, GetType(), "ErroCadastrarUsuario", "Swal.fire('Erro ao cadastrar!', 'Ocorreu um erro durante o processamento das informações!', 'error');", true);
+            }
+            Response.Redirect("~/ConsultarUsuarios.aspx");
         }
 
         protected void btnAdicionarContato_Click(object sender, EventArgs e)
         {
+            if (FormularioContatoInvalido())
+                return;
+
             List<ContatoDTO> contatos = GetSessionContatos();
 
-            ContatoDTO novoContato = new ContatoDTO();
-            novoContato.TipoContatoId = Convert.ToInt32(dropTipoContato.SelectedValue);
-            novoContato.Descricao = contato.Text;
+            ContatoDTO novoContato = new ContatoDTO()
+            {
+                TipoContatoId = Convert.ToInt32(dropTipoContato.SelectedValue),
+                Descricao = contato.Text
+            };
 
-            contatos.Add(novoContato);
-            SetSessionContatos(contatos);
+            // Verifica se o contato já foi cadastrado anteriormente
+            bool contatoExiste = contatos.Any(c => c.TipoContatoId.Equals(novoContato.TipoContatoId) && c.Descricao.Equals(novoContato.Descricao));
+            
+            if (!contatoExiste)
+            {
+                contatos.Add(novoContato);
+                SetSessionContatos(contatos);
+                ScriptManager.RegisterStartupScript(this, GetType(), "ContatoCadastrado", "Swal.fire('Contato adicionado!', 'Contato adicionado com sucesso!', 'success');", true);
+            }
+            else
+            {
+                ScriptManager.RegisterStartupScript(this, GetType(), "ContatoDuplicado", "Swal.fire('Contato duplicado!', 'Este contato já foi adicionado anteriormente.', 'error');", true);
+                return;
+            }
+
             ExibirContatos();
         }
 
@@ -70,6 +97,9 @@ namespace DesafioTecnicoSecSaude
                 int rowIndex = Convert.ToInt32(e.CommandArgument.ToString());
                 contatos.RemoveAt(rowIndex);
                 SetSessionContatos(contatos);
+
+                ScriptManager.RegisterStartupScript(this, GetType(), "ContatoRemovido", "Swal.fire('Contato removido!', 'Contato removido com sucesso!', 'success');", true);
+
                 ExibirContatos();
             }
         }
@@ -82,8 +112,6 @@ namespace DesafioTecnicoSecSaude
             perfilErro.Text = string.Empty;
             senhaErro.Text = string.Empty;
             dataNascimentoErro.Text = string.Empty;
-            tipoContatoErro.Text = string.Empty;
-            contatoErro.Text = string.Empty;
             cepErro.Text = string.Empty;
             logradouroErro.Text = string.Empty;
             complementoErro.Text = string.Empty;
@@ -91,6 +119,12 @@ namespace DesafioTecnicoSecSaude
             cidadeErro.Text = string.Empty;
             estadoErro.Text = string.Empty;
             paisErro.Text = string.Empty;
+        }
+
+        private void InicializarCamposContato()
+        {
+            tipoContatoErro.Text = string.Empty;
+            contatoErro.Text = string.Empty;
         }
 
         private bool FormularioInvalido()
@@ -102,7 +136,7 @@ namespace DesafioTecnicoSecSaude
             #region NOME COMPLETO
             if (string.IsNullOrEmpty(nome.Text))
             {
-                nomeErro.Text = "Informe o nome do usuário";
+                nomeErro.Text = "Informe o nome";
                 temDivergencia = true;
             }
             else if (nome.Text.Length > 200)
@@ -115,7 +149,7 @@ namespace DesafioTecnicoSecSaude
             #region EMAIL
             if (string.IsNullOrEmpty(email.Text))
             {
-                emailErro.Text = "Informe o email do usuário";
+                emailErro.Text = "Informe o email";
                 temDivergencia = true;
             }
             else if (!Validation.ValidarEmail(email.Text))
@@ -134,7 +168,7 @@ namespace DesafioTecnicoSecSaude
             #region SENHA
             if (string.IsNullOrEmpty(senha.Text))
             {
-                senhaErro.Text = "Informe a senha do usuário";
+                senhaErro.Text = "Informe a senha";
                 temDivergencia = true;
             }
             else if (senha.Text.Length > 200)
@@ -145,7 +179,6 @@ namespace DesafioTecnicoSecSaude
             #endregion
 
             #region PERFIL
-            var perfis = dropPerfis.SelectedValue;
             if (dropPerfis.SelectedValue == "-1")
             {
                 perfilErro.Text = "O perfil deve ser selecionado";
@@ -156,7 +189,7 @@ namespace DesafioTecnicoSecSaude
             #region CPF
             if (string.IsNullOrEmpty(cpf.Text))
             {
-                cpfErro.Text = "Informe o CPF do usuário";
+                cpfErro.Text = "Informe o CPF";
                 temDivergencia = true;
             }
             else if (!Validation.ValidarCpf(cpf.Text))
@@ -175,7 +208,7 @@ namespace DesafioTecnicoSecSaude
             #region DATA DE NASCIMENTO
             if (string.IsNullOrEmpty(dataNascimento.Text))
             {
-                dataNascimentoErro.Text = "Informe a data de nascimento do usuário";
+                dataNascimentoErro.Text = "Informe a data de nascimento";
                 temDivergencia = true;
             }
             else if (!Validation.ValidarData(dataNascimento.Text))
@@ -257,7 +290,7 @@ namespace DesafioTecnicoSecSaude
             #region ESTADO
             if (string.IsNullOrEmpty(estado.Text))
             {
-                estadoErro.Text = "Informe o Estado";
+                estadoErro.Text = "Informe o estado (UF)";
                 temDivergencia = true;
             }
             else if (estado.Text.Length > 100)
@@ -270,7 +303,7 @@ namespace DesafioTecnicoSecSaude
             #region PAÍS
             if (string.IsNullOrEmpty(pais.Text))
             {
-                paisErro.Text = "Informe o País";
+                paisErro.Text = "Informe o país";
                 temDivergencia = true;
             }
             else if (pais.Text.Length > 100)
@@ -283,6 +316,41 @@ namespace DesafioTecnicoSecSaude
             return temDivergencia;
         }
 
+        private bool FormularioContatoInvalido()
+        {
+            bool temDivergencia = false;
+
+            InicializarCamposContato();
+
+            #region TIPO DE CONTATO
+            if (dropTipoContato.SelectedValue == "-1")
+            {
+                tipoContatoErro.Text = "O tipo do contato deve ser selecionado";
+                temDivergencia = true;
+            }
+            #endregion
+
+            #region DESCRICAO
+            if (string.IsNullOrEmpty(contato.Text))
+            {
+                contatoErro.Text = "O contato deve ser informado";
+                temDivergencia = true;
+            }
+            else if (!Validation.ValidarContato(contato.Text))
+            {
+                contatoErro.Text = "O contato informado é inválido!";
+                temDivergencia = true;
+            }
+            else if (contatoErro.Text.Length > 50)
+            {
+                contatoErro.Text = "O contato deve ter no máximo 50 caracteres";
+                temDivergencia = true;
+            }
+            #endregion
+
+            return temDivergencia;
+        }
+        
         private void ExibirContatos()
         {
             dropTipoContato.SelectedIndex = 0;

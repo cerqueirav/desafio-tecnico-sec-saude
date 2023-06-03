@@ -1,6 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="CadastrarUsuario.aspx.cs" Inherits="DesafioTecnicoSecSaude.CadastrarUsuario" %>
 <%@ Import Namespace="DesafioTecnicoSecSaude.Usuarios.Model" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <div class="container">
         <hr />
         <h3 class="my-3">Cadastro de Usuário</h3> 
@@ -99,19 +100,18 @@
         </div>
 
         <div class="row">
-            <div class="col-md-2">
+            <div class="col-md-3">
                 <div class="form-group">
                     <label for="dropTipoContato">Tipo de Contato</label>
                     <asp:DropDownList class="form-control" ID="dropTipoContato" runat="server">
                         <asp:ListItem Text="Selecione o tipo do contato" Value="-1"></asp:ListItem>
                         <asp:ListItem Text="Telefone Fixo" Value="1"></asp:ListItem>
                         <asp:ListItem Text="Celular" Value="2"></asp:ListItem>
-                        <asp:ListItem Text="E-mail" Value="3"></asp:ListItem>
                     </asp:DropDownList>
                     <asp:Label ID="tipoContatoErro" runat="server" Text="" ForeColor="Red" Font-Size="Small"></asp:Label>
                 </div>
             </div>
-            <div class="col-md-2">
+            <div class="col-md-3">
                 <div class="form-group">
                     <label for="contato">Contato</label>
                     <asp:TextBox class="form-control" type="text" ID="contato" runat="server"></asp:TextBox>

@@ -16,5 +16,9 @@
         {
             return true;
         }
+        public static bool ValidarContato(string contato)
+        {
+            return true;
+        }
     }
 }

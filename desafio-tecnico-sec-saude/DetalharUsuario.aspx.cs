@@ -11,10 +11,9 @@ namespace DesafioTecnicoSecSaude
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            Session["Contatos"] = null;
-
             if (!IsPostBack)
             {
+                Session.Clear();
                 if (Request.QueryString["usuarioId"] != null)
                 {
                     string usuarioId = Request.QueryString["usuarioId"];
