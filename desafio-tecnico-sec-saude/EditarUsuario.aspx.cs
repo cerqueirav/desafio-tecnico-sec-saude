@@ -38,8 +38,6 @@ namespace DesafioTecnicoSecSaude
                 senha.Text = usuario.Senha;
                 dataNascimento.Text = usuario.DataNascimento.ToString("yyyy-MM-dd");
                 dropPerfis.SelectedValue = usuario.Perfil;
-                telefone.Text = usuario.Telefones;
-                endereco.Text = usuario.Endereco;
             }
         }
 
@@ -55,9 +53,9 @@ namespace DesafioTecnicoSecSaude
                 senha.Text, 
                 cpf.Text,
                 DateTime.Parse(dataNascimento.Text), 
-                telefone.Text, 
-                dropPerfis.SelectedValue, 
-                endereco.Text
+                dropPerfis.SelectedValue,
+                new List<ContatoDTO>(),
+                new EnderecoDTO()
             );
 
             try

@@ -255,8 +255,12 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="NHibernate\Mappings\ContatoMap.cs" />
     <Compile Include="NHibernate\Mappings\UsuarioMap.cs" />
+    <Compile Include="Usuarios\DTO\ContatoDTO.cs" />
+    <Compile Include="Usuarios\DTO\EnderecoDTO.cs" />
     <Compile Include="Usuarios\DTO\UsuarioDTO.cs" />
+    <Compile Include="Usuarios\Model\Contato.cs" />
     <Compile Include="Usuarios\Model\Usuario.cs" />
     <Compile Include="NHibernate\NHibernateHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -275,6 +279,7 @@
       <DependentUpon>Site.Mobile.Master</DependentUpon>
     </Compile>
     <Compile Include="Usuarios\Controller\UsuarioController.cs" />
+    <Compile Include="Usuarios\ViewModel\UsuarioDetalharViewModel.cs" />
     <Compile Include="Utils\Validation.cs" />
     <Compile Include="ViewSwitcher.ascx.cs">
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>

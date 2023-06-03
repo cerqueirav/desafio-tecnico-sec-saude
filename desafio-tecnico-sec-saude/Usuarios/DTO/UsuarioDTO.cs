@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace DesafioTecnicoSecSaude.Usuarios.DTO
 {
@@ -9,12 +10,11 @@ namespace DesafioTecnicoSecSaude.Usuarios.DTO
         public virtual string Senha { get; set; }
         public virtual string CPF { get; set; }
         public virtual DateTime DataNascimento { get; set; }
-        public virtual string Telefones { get; set; }
         public virtual string Perfil { get; set; }
-        public virtual string Endereco { get; set; }
+        public virtual List<ContatoDTO> Contatos { get; set; }
+        public virtual EnderecoDTO Endereco { get; set; }
 
-
-        public UsuarioDTO(string nome, string email, string senha, string cpf, DateTime dataNascimento, string telefone, string perfil, string endereco)
+        public UsuarioDTO(string nome, string email, string senha, string cpf, DateTime dataNascimento, string perfil, List<ContatoDTO> contatos, EnderecoDTO endereco)
         {
             Nome = nome;
             Email = email;
@@ -22,7 +22,7 @@ namespace DesafioTecnicoSecSaude.Usuarios.DTO
             Senha = senha;
             Perfil = perfil;
             DataNascimento = dataNascimento;
-            Telefones = telefone.Replace("(", "").Replace(")", "").Replace("-", "");
+            Contatos = contatos;
             Endereco = endereco;
         }
 

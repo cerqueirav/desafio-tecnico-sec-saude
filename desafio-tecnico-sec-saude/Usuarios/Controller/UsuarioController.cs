@@ -14,25 +14,49 @@ namespace DesafioTecnicoSecSaude.Usuarios.Controller
         {
             if (this.ValidarCamposCadastro(usuarioDTO))
             {
+                var usuario = new Usuario
+                {
+                    Nome = usuarioDTO.Nome,
+                    Email = usuarioDTO.Email,
+                    Senha = usuarioDTO.Senha,
+                    CPF = usuarioDTO.CPF,
+                    DataCriacao = DateTime.Now,
+                    DataNascimento = usuarioDTO.DataNascimento,
+                    DataAtualizacao = null,
+                    Perfil = usuarioDTO.Perfil,
+                    CEP = usuarioDTO.Endereco.CEP,
+                    Logradouro = usuarioDTO.Endereco.Logradouro,
+                    Complemento = usuarioDTO.Endereco.Complemento,
+                    Numero = usuarioDTO.Endereco.Numero,
+                    Cidade = usuarioDTO.Endereco.Cidade,
+                    Estado = usuarioDTO.Endereco.Estado,
+                    Pais = usuarioDTO.Endereco.Pais,
+                };
+
                 try
                 {
                     using (var session = NHibernateHelper.GetSession())
                     {
-                        var usuario = new Usuario
+                        using (var transaction = session.BeginTransaction())
                         {
-                            Nome = usuarioDTO.Nome,
-                            Email = usuarioDTO.Email,
-                            Senha = usuarioDTO.Senha,
-                            CPF = usuarioDTO.CPF,
-                            DataCriacao = DateTime.Now,
-                            DataNascimento = usuarioDTO.DataNascimento,
-                            DataAtualizacao = null,
-                            Telefones = usuarioDTO.Telefones,
-                            Perfil = usuarioDTO.Perfil,
-                            Endereco = usuarioDTO.Endereco
-                        };
+                            // Cadastro do usuário
+                            var usuarioId = session.Save(usuario);
 
-                        session.Save(usuario);
+                            // Vinculação dos contatos
+                            foreach (var contato in usuarioDTO.Contatos)
+                            {
+                                Contato contatoUsuario = new Contato()
+                                {
+                                    TipoContatoId = contato.TipoContatoId,
+                                    Descricao = contato.Descricao,
+                                    UsuarioId = (int)usuarioId  
+                                };
+
+                                session.Save(contatoUsuario);
+                            }
+
+                            transaction.Commit();
+                        }
                     }
                 }
                 catch(Exception ex)
@@ -113,13 +137,16 @@ namespace DesafioTecnicoSecSaude.Usuarios.Controller
             }
         }
 
-        public Usuario ListarPorId(int id)
+        public Usuario ListarPorId(int usuarioId)
         {
             try
             {
                 using (var session = NHibernateHelper.GetSession())
                 {
-                    return session.Get<Usuario>(id);
+                    return session.QueryOver<Usuario>()
+                    .Where(u => u.Id == usuarioId)
+                    .Fetch(u => u.Contatos).Eager
+                    .SingleOrDefault();
                 }
             }
             catch (Exception ex)
@@ -154,14 +181,8 @@ namespace DesafioTecnicoSecSaude.Usuarios.Controller
             if (Validation.ValidarData(usuarioAtualizado.DataNascimento.ToString()))
                 usuarioAtual.DataNascimento = usuarioAtualizado.DataNascimento;
 
-            if (!String.IsNullOrEmpty(usuarioAtualizado.Telefones))
-                usuarioAtual.Telefones = usuarioAtualizado.Telefones;
-
             if (!String.IsNullOrEmpty(usuarioAtualizado.Perfil))
                 usuarioAtual.Perfil = usuarioAtualizado.Perfil;
-
-            if (!String.IsNullOrEmpty(usuarioAtualizado.Endereco))
-                usuarioAtual.Endereco = usuarioAtualizado.Endereco;
 
             usuarioAtual.DataAtualizacao = DateTime.Now;
         }

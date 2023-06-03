@@ -19,6 +19,7 @@ namespace DesafioTecnicoSecSaude.NHibernate
                     _sessionFactory = Fluently.Configure()
                         .Database(MsSqlConfiguration.MsSql2012.ConnectionString(stringConnection))
                         .Mappings(m => m.FluentMappings.AddFromAssemblyOf<Usuario>())
+                        .Mappings(m => m.FluentMappings.AddFromAssemblyOf<Contato>())
                         .BuildSessionFactory();
                 }
                 return _sessionFactory;

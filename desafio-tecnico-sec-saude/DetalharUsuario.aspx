@@ -63,14 +63,24 @@
         <div class="row">
             <div class="col-lg-12">
                 <fieldset>
-                    <legend> Contato</legend>
+                    <legend>Contatos</legend>
                 </fieldset>
+              
             </div>
+           
             <div class="col-md-6">
-                <div class="form-group">
-                    <label for="telefone">Telefone</label>
-                    <asp:TextBox class="form-control" type="text" ID="telefone" runat="server" Enabled="false"></asp:TextBox>
-                </div>
+                <asp:GridView ID="tabelaContatos" runat="server" AutoGenerateColumns="False" CssClass="table table-striped">
+                    <HeaderStyle BackColor="#2e6da4" ForeColor="White" Font-Bold="true" />
+                    <Columns>
+                       <asp:TemplateField HeaderText="Tipo de Contato">
+                            <ItemTemplate>
+                                <%# GetTipoContatoText(Convert.ToInt32(Eval("TipoContatoId"))) %>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+
+                        <asp:BoundField DataField="Descricao" HeaderText="Contato" />
+                    </Columns>
+                </asp:GridView>
             </div>
         </div>
 

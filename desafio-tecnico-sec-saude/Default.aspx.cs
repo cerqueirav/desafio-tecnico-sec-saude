@@ -40,9 +40,7 @@ namespace DesafioTecnicoSecSaude
                 CPF = "123.456.789-00",
                 Senha = "#1x1mp10$!",
                 DataNascimento = DateTime.Parse("10/01/1988"),
-                Telefones = "71991087353",
                 Perfil = "Administrador",
-                Endereco = "Rua da Bolivia, 345, 40875322"
             };
         }
 
@@ -51,9 +49,7 @@ namespace DesafioTecnicoSecSaude
             return new UsuarioDTO()
             {
                 Nome = "Victor Lima Cerqueira",
-                Telefones = "71991087353",
                 Perfil = "Operador",
-                Endereco = "Rua Direta de São Marcos, 55, 40324494"
             };
         }
     }

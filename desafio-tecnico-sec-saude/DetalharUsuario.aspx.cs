@@ -1,7 +1,9 @@
 ﻿using DesafioTecnicoSecSaude.Usuarios.Controller;
 using DesafioTecnicoSecSaude.Usuarios.Model;
 using System;
+using System.Collections.Generic;
 using System.Web.UI;
+using System.Web.UI.WebControls;
 
 namespace DesafioTecnicoSecSaude
 {
@@ -9,12 +11,15 @@ namespace DesafioTecnicoSecSaude
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            Session["Contatos"] = null;
+
             if (!IsPostBack)
             {
                 if (Request.QueryString["usuarioId"] != null)
                 {
                     string usuarioId = Request.QueryString["usuarioId"];
-                    CarregarDetalhesUsuario(usuarioId);
+                    CarregarDetalhesUsuario(Convert.ToInt32(usuarioId));
+                    CarregarContatosUsuario();
                 }
                 else
                 {
@@ -23,56 +28,78 @@ namespace DesafioTecnicoSecSaude
             }
         }
 
-        private void CarregarDetalhesUsuario(string usuarioId)
+        private void CarregarContatosUsuario()
         {
-            int id;
-            if (int.TryParse(usuarioId, out id))
+            var contatos = (List<Contato>)Session["Contatos"];
+
+            tabelaContatos.DataSource = contatos;
+            tabelaContatos.DataBind();
+        }
+
+        private void CarregarDetalhesUsuario(int usuarioId)
+        {
+            if (!usuarioId.Equals(0))
             {
-                UsuarioController controller = new UsuarioController();
-                Usuario usuario = controller.ListarPorId(id);
-
-                if (usuario != null)
+                try
                 {
-                    nome.Text = usuario.Nome;
-                    email.Text = usuario.Email;
-                    cpf.Text = usuario.CPF;
-                    senha.Text = usuario.Senha;
+                    UsuarioController controller = new UsuarioController();
+                    Usuario usuario = controller.ListarPorId(usuarioId);
 
-                    dataNascimento.Text = usuario.DataNascimento.ToString("dd/MM/yyyy");
-                    telefone.Text = usuario.Telefones;
-                    dropPerfis.SelectedValue = usuario.Perfil;
-                    endereco.Text = usuario.Endereco;
-
-                    // Desabilitar a edição dos campos
-                    nome.Enabled = false;
-                    email.Enabled = false;
-                    cpf.Enabled = false;
-                    senha.Enabled = false;
-                    telefone.Enabled = false;
-                    dropPerfis.Enabled = false;
-                    endereco.Enabled = false;
-                    dataCriacao.Text = usuario.DataCriacao.ToString("dd/MM/yyyy HH:mm");
-
-                    DateTime dataPadrao = new DateTime(0001, 1, 1, 0, 0, 0);
-
-                    if (usuario.DataAtualizacao != dataPadrao)
+                    if (usuario != null)
                     {
-                        if (usuario.DataAtualizacao.HasValue)
-                        {
-                            dataAtualizacao.Text = usuario.DataAtualizacao.Value.ToString("dd/MM/yyyy HH:mm");
-                        }
+                        nome.Text = usuario.Nome;
+                        email.Text = usuario.Email;
+                        cpf.Text = usuario.CPF;
+                        senha.Text = usuario.Senha;
+                        dataNascimento.Text = usuario.DataNascimento.ToString("dd/MM/yyyy");
+                        dropPerfis.SelectedValue = usuario.Perfil;
+
+                        nome.Enabled = false;
+                        email.Enabled = false;
+                        cpf.Enabled = false;
+                        senha.Enabled = false;
+                        dropPerfis.Enabled = false;
+                        endereco.Enabled = false;
+                        dataCriacao.Text = usuario.DataCriacao.ToString("dd/MM/yyyy HH:mm");
+
+                        if (usuario.Contatos != null && usuario.Contatos.Count > 0)
+                            Session["Contatos"] = new List<Contato>(usuario.Contatos);
+                        
+                        DateTime dataPadrao = new DateTime(0001, 1, 1, 0, 0, 0);
+
+                        if (usuario.DataAtualizacao != dataPadrao)
+                            dataAtualizacao.Text = (usuario.DataAtualizacao.HasValue) ? usuario.DataAtualizacao.Value.ToString("dd/MM/yyyy HH:mm") : "N/A";   
+                        else
+                            dataAtualizacao.Text = "N/A";
                     }
                     else
-                        dataAtualizacao.Text = "N/A";
+                    {
+                        this.Response.Redirect("ConsultarUsuarios.aspx");
+                    }
                 }
-                else
+                catch (Exception)
                 {
-                    this.Response.Redirect("ConsultarUsuarios.aspx");
-                }
+
+                }                
             }
             else
             {
                 this.Response.Redirect("ConsultarUsuarios.aspx");
+            }
+        }
+
+        protected string GetTipoContatoText(int tipoContato)
+        {
+            switch (tipoContato)
+            {
+                case 1:
+                    return "Telefone Fixo";
+                case 2:
+                    return "Celular";
+                case 3:
+                    return "E-mail";
+                default:
+                    return string.Empty;
             }
         }
 

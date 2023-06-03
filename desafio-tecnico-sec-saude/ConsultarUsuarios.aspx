@@ -11,7 +11,7 @@
                 <asp:BoundField DataField="Email" HeaderText="Email" />
                 <asp:BoundField DataField="CPF" HeaderText="CPF" />
                 <asp:BoundField DataField="DataNascimento" HeaderText="Data de Nascimento" DataFormatString="{0:dd/MM/yyyy}" />
-                <asp:BoundField DataField="Perfil" HeaderText="Perfil" />
+                <asp:BoundField DataField="DataCriacao" HeaderText="Data de Cadastro" DataFormatString="{0:dd/MM/yyyy}" />
                 <asp:TemplateField>
                    <ItemTemplate>
                         <div class="btn-group">
