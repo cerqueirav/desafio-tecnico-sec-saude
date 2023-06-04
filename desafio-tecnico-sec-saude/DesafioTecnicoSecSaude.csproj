@@ -273,6 +273,8 @@
     <Compile Include="Usuarios\Controller\UsuarioController.cs" />
     <Compile Include="Usuarios\ViewModel\UsuarioDetalharViewModel.cs" />
     <Compile Include="Utils\Validation.cs" />
+    <Compile Include="Utils\Viacep\Model\ViaCepModel.cs" />
+    <Compile Include="Utils\Viacep\Service\ViaCepService.cs" />
     <Compile Include="ViewSwitcher.ascx.cs">
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

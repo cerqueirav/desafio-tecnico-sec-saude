@@ -81,10 +81,10 @@ namespace DesafioTecnicoSecSaude
                         
                         DateTime dataPadrao = new DateTime(0001, 1, 1, 0, 0, 0);
 
-                        //if (usuario.DataAtualizacao != dataPadrao)
-                        //    dataAtualizacao.Text = (usuario.DataAtualizacao.HasValue) ? usuario.DataAtualizacao.Value.ToString("dd/MM/yyyy HH:mm") : "N/A";   
-                        //else
-                        //    dataAtualizacao.Text = "N/A";
+                        if (usuario.DataAtualizacao != dataPadrao)
+                            dataAtualizacao.Text = (usuario.DataAtualizacao.HasValue) ? usuario.DataAtualizacao.Value.ToString("dd/MM/yyyy HH:mm") : "N/A";
+                        else
+                            dataAtualizacao.Text = "N/A";
                     }
                     else
                     {

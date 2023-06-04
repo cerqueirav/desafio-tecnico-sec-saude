@@ -1,9 +1,13 @@
 ﻿using DesafioTecnicoSecSaude.Usuarios.Controller;
 using DesafioTecnicoSecSaude.Usuarios.DTO;
 using DesafioTecnicoSecSaude.Utils;
+using DesafioTecnicoSecSaude.Utils.Viacep.Model;
+using DesafioTecnicoSecSaude.Utils.Viacep.Service;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -55,6 +59,32 @@ namespace DesafioTecnicoSecSaude
                 ScriptManager.RegisterStartupScript(this, GetType(), "ErroCadastrarUsuario", "Swal.fire('Erro ao cadastrar!', 'Ocorreu um erro durante o processamento das informações!', 'error');", true);
             }
             Response.Redirect("~/ConsultarUsuarios.aspx");
+        }
+
+        protected void carregarEndereco(object sender, EventArgs e)
+        {
+            cepErro.Text = "";
+            try
+            {
+                ViaCepService cepService = new ViaCepService();
+                var endereco = cepService.GetEnderecoByCep(cep.Text);
+             
+                if (endereco != null)
+                {
+                    SetCamposEndereco(endereco);
+                    DesabilitarCampos(endereco);
+                }
+                else
+                {
+                    LimparCamposEndereco();
+                    cepErro.Text = "O CEP informado é inválido!";
+                }
+                
+            }
+            catch(Exception )
+            {
+                cepErro.Text = "O CEP informado é inválido!";
+            }
         }
 
         protected void btnAdicionarContato_Click(object sender, EventArgs e)
@@ -359,6 +389,17 @@ namespace DesafioTecnicoSecSaude
             tabelaContatos.DataBind();
         }
 
+        protected List<ContatoDTO> GetSessionContatos()
+        {
+            return (List<ContatoDTO>)Session["Contatos"];
+        }
+
+        protected void SetSessionContatos(List<ContatoDTO> contatos)
+        {
+            Session["Contatos"] = contatos;
+        }
+
+        #region METODOS PRIVADOS
         protected string GetTipoContatoText(int tipoContato)
         {
             switch (tipoContato)
@@ -371,15 +412,47 @@ namespace DesafioTecnicoSecSaude
                     return string.Empty;
             }
         }
-
-        protected List<ContatoDTO> GetSessionContatos()
+        private void SetCamposEndereco(ViaCepModel endereco)
         {
-            return (List<ContatoDTO>)Session["Contatos"];
+            logradouro.Text = ConvertToUtf8(endereco.Logradouro);
+            complemento.Text = ConvertToUtf8(endereco.Complemento);
+            cidade.Text = ConvertToUtf8(endereco.Bairro);
+            estado.Text = ConvertToUtf8(endereco.Uf);
+            pais.Text = "Brasil";
         }
 
-        protected void SetSessionContatos(List<ContatoDTO> contatos)
+        private void DesabilitarCampos(ViaCepModel endereco)
         {
-            Session["Contatos"] = contatos;
+            if (!string.IsNullOrEmpty(endereco.Logradouro))
+                logradouro.Enabled = false;
+
+            if (!string.IsNullOrEmpty(endereco.Complemento))
+                complemento.Enabled = false;
+
+            if (!string.IsNullOrEmpty(endereco.Localidade))
+                cidade.Enabled = false;
+
+            if (!string.IsNullOrEmpty(endereco.Uf))
+                estado.Enabled = false;
+
+            if (!string.IsNullOrEmpty(endereco.Cep))
+                pais.Enabled = false;
         }
+
+        private void LimparCamposEndereco()
+        {
+            logradouro.Text = "";
+            complemento.Text = "";
+            cidade.Text = "";
+            estado.Text = "";
+            pais.Text = "";
+        }
+
+        private string ConvertToUtf8(string input)
+        {
+            byte[] isoBytes = Encoding.GetEncoding("iso-8859-1").GetBytes(input);
+            return Encoding.UTF8.GetString(isoBytes);
+        }
+        #endregion
     }
 }

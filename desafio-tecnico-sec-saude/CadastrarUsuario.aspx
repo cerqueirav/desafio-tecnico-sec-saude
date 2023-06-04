@@ -71,8 +71,7 @@
             <div class="col-lg-12">
                 <fieldset>
                     <legend>Contatos</legend>
-                </fieldset>
-              
+                </fieldset>  
             </div>
            
             <div class="col-md-6">
@@ -119,7 +118,7 @@
                 </div>
             </div>
 
-            <div class="col-md-12">
+            <div class="col-md-12" style="margin-bottom: 2%">
                 <asp:Button ID="btnAdicionarContato" runat="server" Text="Adicionar Contato" CssClass="btn btn-primary" OnClick="btnAdicionarContato_Click" />
             </div>
         </div>
@@ -132,7 +131,7 @@
             <div class="col-md-6">
                 <div class="form-group">
                     <label for="cep">CEP</label>
-                    <asp:TextBox ID="cep" CssClass="form-control" runat="server"></asp:TextBox>
+                    <asp:TextBox ID="cep" CssClass="form-control" runat="server"  OnTextChanged="carregarEndereco" AutoPostBack="true" ></asp:TextBox>
                     <asp:Label ID="cepErro" runat="server" Text="" ForeColor="Red" Font-Size="Small"></asp:Label>
                 </div>
                 <div class="form-group">
