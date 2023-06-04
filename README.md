@@ -9,110 +9,25 @@
 Este projeto tem como objetivo realizar a criação de uma Aplicação Web com WebForms e integrá-la ao Banco de Dados utilizando o NHibernate como mecanismo de persistência de dados (ORM).
 
 ## Requisitos
+Certifique-se de ter as seguintes ferramentas e componentes instalados em seu sistema:
 
-- SDK .NET 7.0 or later
-- NHibernate
-- Docker
+- .NET Framework (versão compatível com o projeto)
+- SQL Server (ou outro banco de dados compatível)
+- NHibernate (biblioteca ORM)
 
-## Instalação da Aplicação Web (Aplicação WebForms)
+## Configuração do Banco de Dados
+- Instale e configure o SQL Server em seu sistema, se ainda não estiver instalado.
+- Crie um novo banco de dados vazio com o nome "SecSaudeDb" para o projeto.
+- Execute o script SQL fornecido na raiz do projeto (script.sql) no banco de dados "SecSaudeDb" para criar as tabelas necessárias e realizar outras configurações específicas do banco de dados.
 
-```bash
-# Clonar o repositório
-git clone https://github.com/cerqueirav/desafio-tecnico-sec-saude/
+Obs: Certifique-se de atualizar as informações de conexão do banco de dados no arquivo de configuração do projeto, conforme necessário.
 
-# Navegue até a raiz do projeto
-cd desafio-tecnico-sec-saude
+## Executando o Projeto
+Siga as etapas abaixo para configurar e executar o projeto:
 
-# Instale as dependências (usando NuGet ou CMD)
-- Newtonsoft Json 13.0.3 ou superior
-- Microsoft Visual Studio Azure Containers Tools Targets 1.17.0 ou superior
-
-# Execute a aplicação Web
-dotnet run or run through visual studio
-```
-
-## Instalação da Aplicação WebAPI (NHibernate)
-
-```bash
-# Clonar o repositório
-git clone https://github.com/cerqueirav/desafio-tecnico-sec-saude/
-
-# Navegue até a raiz do projeto
-cd desafio-tecnico-sec-saude
-
-# Instale as dependências (usando NuGet ou CMD)
-- Microsoft Visual Studio Azure Containers Tools Targets 1.17.0 ou superior
-- NHibernate 5.4.2 ou superior
-- Swashbuckle AspNetCore 6.4.0 ou superior
-
-# Execute a aplicação WebAPI
-dotnet run or run through visual studio
-
-## Documentação
-
-Enumeradores
-
-Perfil de Acesso:
-1 - Administrador
-2 - Supervisor
-3 - Operador
-
-Tipo de Contato:
-1 - Telefone Fixo
-2 - Telefone Celular
-
-```bash
-POST https://localhost:44391/usuario/cadastrar
-```
-
-O corpo da requisição (body) deve ser um objeto JSON com os seguintes campos:
-
-- Nome (obrigatório): O nome completo do Usuário
-- Email (obrigatório): O email do Usuário
-- Senha (obrigatório): A senha do Usuário
-- CPF (obrigatório): O Cadastro de Pessoa Física (CPF) do Usuário
-- DataNascimento (obrigatório): A data de nascimento do Usuário
-- Telefones (obrigatório): A lista de contatos do usuário
-- Perfil (obrigatório): O perfil de acesso do Usuário
-- Endereço (obrigatório): O endereço completo do usuário, contendo os dados a seguir:
-  - Logradouro, 
-  - Complemento, 
-  - Numero, 
-  - Cidade,
-  - Estado, 
-  - Pais
-  - CEP 
- 
-Exemplo:
-
-```json
-{
-    "Nome": "Fulano Beltrano",
-    "Email": "fulano.beltrano@email.com",
-    "Senha": "#1x1mp10$!",
-    "CPF": "123.456.789-00",
-    "DataNascimento": "10/01/1990",
-    "Telefones":[ 
-      {
-         "TipoContato": 1,
-         "Contato": "7132249874"
-      },
-      {
-         "TipoContato": 2,
-         "Contato": "71991079555"
-      }
-    ],
-    "Perfil": "1",
-    "Endereco": {
-      "Logradouro" : "Rua da Alegria", 
-      "Complemento": "Apartamento 905", 
-      "Numero": "88", 
-      "Cidade": "Salvador",
-      "Estado": "Bahia", 
-      "Pais": "Brasil",
-      "CEP": "40387987" 
-    }
-}
-```
-
-Definir mensagem de retorno
+- Abra o projeto no Visual Studio ou na sua IDE de preferência.
+- Certifique-se de que as dependências do projeto estejam instaladas corretamente. Caso contrário, use o NuGet Package Manager para restaurar as dependências necessárias.
+- Verifique se as configurações do banco de dados estão corretas no arquivo de configuração do projeto.
+- Compile o projeto para garantir que não haja erros de compilação.
+- Execute o projeto pressionando F5 ou usando a opção "Executar" na sua IDE.
+- O projeto será executado em um servidor local e poderá ser acessado por meio do navegador no endereço https://localhost:44350.
