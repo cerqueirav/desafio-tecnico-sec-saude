@@ -54,7 +54,7 @@ namespace DesafioTecnicoSecSaude
                         cep.Text = usuario.CEP;
                         logradouro.Text = usuario.Logradouro;
                         complemento.Text = usuario.Complemento;
-                        numero.Text = usuario.Complemento;
+                        numero.Text = usuario.Numero;
                         cidade.Text = usuario.Cidade;
                         estado.Text = usuario.Estado;
                         pais.Text = usuario.Pais;
