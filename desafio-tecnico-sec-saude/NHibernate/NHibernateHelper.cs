@@ -15,7 +15,7 @@ namespace DesafioTecnicoSecSaude.NHibernate
             {
                 if (_sessionFactory is null)
                 {
-                    string stringConnection = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=SecSaudeDb;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+                    string stringConnection = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=SecSaudeDb2;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
                     _sessionFactory = Fluently.Configure()
                         .Database(MsSqlConfiguration.MsSql2012.ConnectionString(stringConnection))
                         .Mappings(m => m.FluentMappings.AddFromAssemblyOf<Usuario>())
