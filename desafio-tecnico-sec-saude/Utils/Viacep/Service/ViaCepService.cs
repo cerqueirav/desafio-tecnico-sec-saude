@@ -16,11 +16,11 @@ namespace DesafioTecnicoSecSaude.Utils.Viacep.Service
                     var json = client.DownloadString($"https://viacep.com.br/ws/{cep}/json/");
                     return JsonConvert.DeserializeObject<ViaCepModel>(json);
                 }
-                catch (WebException ex)
+                catch (WebException)
                 {
                     return null;
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     return null;
                 }

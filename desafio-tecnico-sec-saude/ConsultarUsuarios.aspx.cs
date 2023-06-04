@@ -12,13 +12,15 @@ namespace DesafioTecnicoSecSaude
             if (!Page.IsPostBack)
             {
                 Session.Clear();
-                var listaUsuarios = new UsuarioController().ListarTodos();
-                if (listaUsuarios != null && listaUsuarios.Count > 0)
-                {
-                    this.grdDados.DataSource = listaUsuarios;
-                    this.grdDados.DataBind();
-                }
+                CarregarUsuarios();
             }
+        }
+
+        protected void grdDados_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            grdDados.PageIndex = e.NewPageIndex;
+            CarregarUsuarios();
+            ScriptManager.RegisterStartupScript(this, GetType(), "scrollToGridView", "scrollToGridView();", true);
         }
 
         protected void grdDados_RowCommand(object sender, GridViewCommandEventArgs e)
@@ -45,7 +47,18 @@ namespace DesafioTecnicoSecSaude
                     RemoverUsuario(usuarioId);
                     this.Response.Redirect("ConsultarUsuarios.aspx");
                 }
-                    
+
+            }
+        }
+
+        protected void CarregarUsuarios()
+        {
+            var listaUsuarios = new UsuarioController().ListarTodos();
+
+            if (listaUsuarios != null && listaUsuarios.Count > 0)
+            {
+                this.grdDados.DataSource = listaUsuarios;
+                this.grdDados.DataBind();
             }
         }
         protected void CadastroUsuario_Click(object sender, EventArgs e)

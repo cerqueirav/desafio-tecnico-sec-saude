@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace DesafioTecnicoSecSaude.Usuarios.DTO
 {
-    public class UsuarioDTO
+    public class UsuarioCadastrarDTO
     {
         public virtual string Nome { get; set; }
         public virtual string Email { get; set; }
@@ -14,7 +14,7 @@ namespace DesafioTecnicoSecSaude.Usuarios.DTO
         public virtual List<ContatoDTO> Contatos { get; set; }
         public virtual EnderecoDTO Endereco { get; set; }
 
-        public UsuarioDTO(string nome, string email, string senha, string cpf, DateTime dataNascimento, string perfil, List<ContatoDTO> contatos, EnderecoDTO endereco)
+        public UsuarioCadastrarDTO(string nome, string email, string senha, string cpf, DateTime dataNascimento, string perfil, List<ContatoDTO> contatos, EnderecoDTO endereco)
         {
             Nome = nome;
             Email = email;
@@ -26,6 +26,6 @@ namespace DesafioTecnicoSecSaude.Usuarios.DTO
             Endereco = endereco;
         }
 
-        public UsuarioDTO() { }
+        public UsuarioCadastrarDTO() { }
     }
 }

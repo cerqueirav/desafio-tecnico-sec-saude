@@ -10,7 +10,7 @@ namespace DesafioTecnicoSecSaude.Usuarios.Controller
 {
     public class UsuarioController
     {
-        public void Cadastrar(UsuarioDTO usuarioDTO)
+        public void Cadastrar(UsuarioCadastrarDTO usuarioDTO)
         {
             if (this.ValidarCamposCadastro(usuarioDTO))
             {
@@ -222,7 +222,7 @@ namespace DesafioTecnicoSecSaude.Usuarios.Controller
             return true;
         }
 
-        private bool ValidarCamposCadastro(UsuarioDTO usuarioDTO)
+        private bool ValidarCamposCadastro(UsuarioCadastrarDTO usuarioDTO)
         {
             if (String.IsNullOrEmpty(usuarioDTO.Nome))
                 return false;

@@ -39,7 +39,7 @@ namespace DesafioTecnicoSecSaude
                     Pais = pais.Text,
                 };
 
-                UsuarioDTO usuarioDTO = new UsuarioDTO()
+                UsuarioCadastrarDTO usuarioDTO = new UsuarioCadastrarDTO()
                 {
                     Nome = nome.Text,
                     Email = email.Text,

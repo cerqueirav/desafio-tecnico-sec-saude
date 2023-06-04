@@ -31,9 +31,9 @@ namespace DesafioTecnicoSecSaude
             //controller.Deletar(3);
         }
 
-        public UsuarioDTO GetUsuarioCadastrarMock()
+        public UsuarioCadastrarDTO GetUsuarioCadastrarMock()
         {
-            return new UsuarioDTO()
+            return new UsuarioCadastrarDTO()
             {
                 Nome = "Victor Cerqueira",
                 Email = "dev.cerqueira@gmail.com",
@@ -44,9 +44,9 @@ namespace DesafioTecnicoSecSaude
             };
         }
 
-        public UsuarioDTO GetUsuarioAtualizarMock()
+        public UsuarioCadastrarDTO GetUsuarioAtualizarMock()
         {
-            return new UsuarioDTO()
+            return new UsuarioCadastrarDTO()
             {
                 Nome = "Victor Lima Cerqueira",
                 Perfil = "Operador",
