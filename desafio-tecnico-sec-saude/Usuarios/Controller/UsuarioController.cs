@@ -101,25 +101,41 @@ namespace DesafioTecnicoSecSaude.Usuarios.Controller
                             // Atualização dos contatos (exclusões)
                             foreach (var contatoExcluido in usuarioAtualizarDTO.ContatosExcluidos)
                             {
-                                var contato = session.Get<Contato>(contatoExcluido.Id);
+                                try
+                                {
+                                    var contato = session.Get<Contato>(contatoExcluido.Id);
 
-                                if (contato != null)
-                                    session.Delete(contato);
+                                    if (contato != null)
+                                        session.Delete(contato);
+                                }
+                                catch (Exception ex)
+                                {
+                                    transaction.Rollback();
+                                    throw new Exception("Ocorreu um erro ao excluir um contato!\nDetalhes sobre o erro: " + ex.Message);
+                                }
                             }
 
                             // Atualização dos contatos (novos)
                             foreach (var contatoNovo in usuarioAtualizarDTO.Contatos)
                             {
-                                if (contatoNovo.Id.Equals(0))
+                                try
                                 {
-                                    Contato contatoUsuario = new Contato()
+                                    if (contatoNovo.Id.Equals(0))
                                     {
-                                        TipoContatoId = contatoNovo.TipoContatoId,
-                                        Descricao = contatoNovo.Descricao,
-                                        UsuarioId = id
-                                    };
+                                        Contato contatoUsuario = new Contato()
+                                        {
+                                            TipoContatoId = contatoNovo.TipoContatoId,
+                                            Descricao = contatoNovo.Descricao,
+                                            UsuarioId = id
+                                        };
 
-                                    session.Save(contatoUsuario);
+                                        session.Save(contatoUsuario);
+                                    }
+                                }
+                                catch (Exception ex)
+                                {
+                                    transaction.Rollback();
+                                    throw new Exception("Ocorreu um erro ao adicionar um novo contato!\nDetalhes sobre o erro: " + ex.Message);
                                 }
                             }
 
@@ -129,7 +145,7 @@ namespace DesafioTecnicoSecSaude.Usuarios.Controller
                 }
                 catch (Exception ex)
                 {
-                    throw new Exception("Ocorreu um erro ao atualizar o usuário!\n Detalhes sobre o erro : " + ex);
+                    throw new Exception("Ocorreu um erro ao atualizar o usuário!\nDetalhes sobre o erro: " + ex.Message);
                 }
             }
             else
