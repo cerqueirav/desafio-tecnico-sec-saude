@@ -45,14 +45,22 @@ namespace DesafioTecnicoSecSaude.Usuarios.Controller
                             // Vinculação dos contatos
                             foreach (var contato in usuarioDTO.Contatos)
                             {
-                                Contato contatoUsuario = new Contato()
+                                try
                                 {
-                                    TipoContatoId = contato.TipoContatoId,
-                                    Descricao = contato.Descricao,
-                                    UsuarioId = (int)usuarioId  
-                                };
+                                    Contato contatoUsuario = new Contato()
+                                    {
+                                        TipoContatoId = contato.TipoContatoId,
+                                        Descricao = contato.Descricao,
+                                        UsuarioId = (int)usuarioId
+                                    };
 
-                                session.Save(contatoUsuario);
+                                    session.Save(contatoUsuario);
+                                }
+                                catch(Exception ex)
+                                {
+                                    transaction.Rollback();
+                                    throw new Exception("Ocorreu um erro ao adicionar um contato!\nDetalhes sobre o erro: " + ex.Message);
+                                }
                             }
 
                             transaction.Commit();
