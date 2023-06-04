@@ -201,6 +201,11 @@ namespace DesafioTecnicoSecSaude
                 senhaErro.Text = "Informe a senha";
                 temDivergencia = true;
             }
+            else if (!Validation.ValidarSenha(senha.Text))
+            {
+                senhaErro.Text = "A senha precisa ter pelo menos uma letra e um número";
+                temDivergencia = true;
+            }
             else if (senha.Text.Length > 200)
             {
                 senhaErro.Text = "A senha deve ter no máximo 100 caracteres";
@@ -245,15 +250,6 @@ namespace DesafioTecnicoSecSaude
             {
                 dataNascimentoErro.Text = "A data de nascimento informada é inválida!";
                 temDivergencia = true;
-            }
-            else if (!string.IsNullOrEmpty(dataNascimento.Text))
-            {
-                var data = DateTime.Parse(dataNascimento.Text);
-                if (data == DateTime.MinValue)
-                {
-                    dataNascimentoErro.Text = "A data de nascimento informada é inválida!";
-                    temDivergencia = true;
-                }
             }
             #endregion
 
