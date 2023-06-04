@@ -35,14 +35,6 @@
                     <asp:Label ID="cpfErro" runat="server" Text="" ForeColor="Red" Font-Size="Small"></asp:Label>
                 </div>
             </div>
-
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label for="senha">Senha</label>
-                    <asp:TextBox class="form-control" type="password" ID="senha" runat="server"></asp:TextBox>
-                    <asp:Label ID="senhaErro" runat="server" Text="" ForeColor="Red" Font-Size="Small"></asp:Label>
-                </div>
-            </div>
             
             <div class="col-md-6">
                 <div class="form-group">
@@ -69,19 +61,57 @@
         <div class="row">
             <div class="col-lg-12">
                 <fieldset>
-                    <legend>Contato</legend>
+                    <legend>Contatos</legend>
                 </fieldset>
             </div>
+
             <div class="col-md-6">
+                <asp:GridView ID="tabelaContatos" runat="server" AutoGenerateColumns="False" 
+                    OnRowCommand="grdDados_RowCommand" CssClass="table table-striped">
+                    <HeaderStyle BackColor="#2e6da4" ForeColor="White" Font-Bold="true" />
+                    <Columns>
+                        <asp:TemplateField HeaderText="Tipo de Contato">
+                            <ItemTemplate>
+                                <%# GetTipoContatoText(Convert.ToInt32(Eval("TipoContatoId"))) %>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                        <asp:BoundField DataField="Descricao" HeaderText="Contato" />
+                        <asp:TemplateField>
+                           <ItemTemplate>
+                                <div class="btn-group">
+                                    <asp:Button ID="btnExcluirContato" runat="server" CommandName="ExcluirContato" Text="Remover"  CommandArgument='<%# Container.DataItemIndex + ";" + Eval("Id") %>' CssClass="btn btn-sm btn-primary" />
+                                </div>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                    </Columns>
+                </asp:GridView>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
                 <div class="form-group">
-                    <label for="telefone">Telefone</label>
-                    <asp:TextBox class="form-control" type="text" ID="telefone" runat="server"></asp:TextBox>
-                    <asp:Label ID="telefoneErro" runat="server" Text="" ForeColor="Red" Font-Size="Small"></asp:Label>
+                    <label for="dropTipoContato">Tipo de Contato</label>
+                    <asp:DropDownList class="form-control" ID="dropTipoContato" runat="server">
+                        <asp:ListItem Text="Selecione o tipo do contato" Value="-1"></asp:ListItem>
+                        <asp:ListItem Text="Telefone Fixo" Value="1"></asp:ListItem>
+                        <asp:ListItem Text="Celular" Value="2"></asp:ListItem>
+                    </asp:DropDownList>
+                    <asp:Label ID="tipoContatoErro" runat="server" Text="" ForeColor="Red" Font-Size="Small"></asp:Label>
                 </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="contato">Contato</label>
+                    <asp:TextBox class="form-control" type="text" ID="contato" runat="server"></asp:TextBox>
+                    <asp:Label ID="contatoErro" runat="server" Text="" ForeColor="Red" Font-Size="Small"></asp:Label>
+                </div>
+            </div>
+            <div class="col-md-12" style="margin-bottom: 2%">
+                <asp:Button ID="btnAdicionarContato" runat="server" Text="Adicionar Contato" CssClass="btn btn-primary" OnClick="btnAdicionarContato_Click" />
             </div>
         </div>
 
-        <div class="row">
+         <div class="row">
             <div class="col-lg-12">
                 <fieldset>
                     <legend>Endereço</legend>
@@ -89,11 +119,41 @@
             </div>
             <div class="col-md-6">
                 <div class="form-group">
-                    <label for="endereco">Endereço</label>
-                    <asp:TextBox class="form-control" type="text" ID="endereco" runat="server"></asp:TextBox>
-                    <asp:Label ID="enderecoErro" runat="server" Text="" ForeColor="Red" Font-Size="Small"></asp:Label>
+                    <label for="cep">CEP</label>
+                    <asp:TextBox ID="cep" CssClass="form-control" runat="server"  OnTextChanged="carregarEndereco" AutoPostBack="true" ></asp:TextBox>
+                    <asp:Label ID="cepErro" runat="server" Text="" ForeColor="Red" Font-Size="Small"></asp:Label>
                 </div>
-            </div>  
+                <div class="form-group">
+                    <label for="logradouro">Logradouro</label>
+                    <asp:TextBox ID="logradouro" CssClass="form-control" runat="server"></asp:TextBox>
+                    <asp:Label ID="logradouroErro" runat="server" Text="" ForeColor="Red" Font-Size="Small"></asp:Label>
+                </div>
+                <div class="form-group">
+                    <label for="complemento">Complemento</label>
+                    <asp:TextBox ID="complemento" CssClass="form-control" runat="server"></asp:TextBox>
+                    <asp:Label ID="complementoErro" runat="server" Text="" ForeColor="Red" Font-Size="Small"></asp:Label>
+                </div>
+                <div class="form-group">
+                    <label for="numero">Número</label>
+                    <asp:TextBox ID="numero" CssClass="form-control" runat="server"></asp:TextBox>
+                     <asp:Label ID="numeroErro" runat="server" Text="" ForeColor="Red" Font-Size="Small"></asp:Label>
+                </div>
+                <div class="form-group">
+                    <label for="cidade">Cidade</label>
+                    <asp:TextBox ID="cidade" CssClass="form-control" runat="server"></asp:TextBox>
+                     <asp:Label ID="cidadeErro" runat="server" Text="" ForeColor="Red" Font-Size="Small"></asp:Label>
+                </div>
+                <div class="form-group">
+                    <label for="estado">Estado</label>
+                    <asp:TextBox ID="estado" CssClass="form-control" runat="server"></asp:TextBox>
+                    <asp:Label ID="estadoErro" runat="server" Text="" ForeColor="Red" Font-Size="Small"></asp:Label>
+                </div>
+                <div class="form-group">
+                    <label for="pais">País</label>
+                    <asp:TextBox ID="pais" CssClass="form-control" runat="server"></asp:TextBox>
+                    <asp:Label ID="paisErro" runat="server" Text="" ForeColor="Red" Font-Size="Small"></asp:Label>
+                </div>
+            </div>
         </div>
 
         <div class="col-md-12" style="padding:unset">

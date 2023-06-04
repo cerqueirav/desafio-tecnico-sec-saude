@@ -250,7 +250,9 @@
     <Compile Include="NHibernate\Mappings\ContatoMap.cs" />
     <Compile Include="NHibernate\Mappings\UsuarioMap.cs" />
     <Compile Include="Usuarios\DTO\ContatoDTO.cs" />
+    <Compile Include="Usuarios\DTO\ContatoExclusaoDTO.cs" />
     <Compile Include="Usuarios\DTO\EnderecoDTO.cs" />
+    <Compile Include="Usuarios\DTO\UsuarioAtualizarDTO.cs" />
     <Compile Include="Usuarios\DTO\UsuarioDTO.cs" />
     <Compile Include="Usuarios\Model\Contato.cs" />
     <Compile Include="Usuarios\Model\Usuario.cs" />

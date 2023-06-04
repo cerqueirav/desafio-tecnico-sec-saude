@@ -68,57 +68,96 @@ namespace DesafioTecnicoSecSaude.Usuarios.Controller
             {
                 throw new Exception("Os dados informados estão incorretos ou inválidos!");
             }
-
         }
 
-        public void Atualizar(UsuarioDTO usuarioDTO, int id)
-        {
-            try
+        public void Atualizar(UsuarioAtualizarDTO usuarioAtualizarDTO, int id)
+        {  
+            if (this.ValidarCamposAtualizacao(usuarioAtualizarDTO))
             {
-                using (var session = NHibernateHelper.GetSession())
+                try
                 {
-                    using (var transaction = session.BeginTransaction())
+                    using (var session = NHibernateHelper.GetSession())
                     {
-                        // Obtêm o usuário pelo Id
-                        var usuario = session.Get<Usuario>(id);
-
-                        if (usuario != null)
+                        using (var transaction = session.BeginTransaction())
                         {
-                            this.AtualizarCamposUsuario(ref usuario, usuarioDTO);
-                            session.Update(usuario);
+                            // Obtêm o usuário pelo Id
+                            var usuario = session.Get<Usuario>(id);
+
+                            if (usuario != null)
+                            {
+                                this.AtualizarCamposGeraisUsuario(ref usuario, usuarioAtualizarDTO);
+                                this.AtualizarCamposEnderecoUsuario(ref usuario, usuarioAtualizarDTO);
+                                session.Update(usuario);
+                            }
+
+                            // Atualização dos contatos (exclusões)
+                            foreach (var contatoExcluido in usuarioAtualizarDTO.ContatosExcluidos)
+                            {
+                                var contato = session.Get<Contato>(contatoExcluido.Id);
+
+                                if (contato != null)
+                                    session.Delete(contato);
+                            }
+
+                            // Atualização dos contatos (novos)
+                            foreach (var contatoNovo in usuarioAtualizarDTO.Contatos)
+                            {
+                                if (contatoNovo.Id.Equals(0))
+                                {
+                                    Contato contatoUsuario = new Contato()
+                                    {
+                                        TipoContatoId = contatoNovo.TipoContatoId,
+                                        Descricao = contatoNovo.Descricao,
+                                        UsuarioId = id
+                                    };
+
+                                    session.Save(contatoUsuario);
+                                }
+                            }
+
+                            transaction.Commit();
                         }
-                              
-                        transaction.Commit();
                     }
                 }
+                catch (Exception ex)
+                {
+                    throw new Exception("Ocorreu um erro ao atualizar o usuário!\n Detalhes sobre o erro : " + ex);
+                }
             }
-            catch (Exception ex)
+            else
             {
-                throw new Exception("Ocorreu um erro ao atualizar o usuário!\n Detalhes sobre o erro : " + ex);
+                throw new Exception("Os dados informados estão incorretos ou inválidos!");
             }
         }
 
         public void Deletar(int id)
         {
-            try
+            if (!id.Equals(0))
             {
-                using (var session = NHibernateHelper.GetSession())
+                try
                 {
-                    using (var transaction = session.BeginTransaction())
+                    using (var session = NHibernateHelper.GetSession())
                     {
-                        // Obtêm o usuário pelo Id
-                        var usuario = session.Get<Usuario>(id);
+                        using (var transaction = session.BeginTransaction())
+                        {
+                            // Obtêm o usuário pelo Id
+                            var usuario = session.Get<Usuario>(id);
 
-                        if (usuario != null)
-                            session.Delete(usuario);
-                            
-                        transaction.Commit();
+                            if (usuario != null)
+                                session.Delete(usuario);
+
+                            transaction.Commit();
+                        }
                     }
                 }
+                catch (Exception ex)
+                {
+                    throw new Exception("Ocorreu um erro ao deletar o usuário!\n Detalhes sobre o erro : " + ex);
+                }
             }
-            catch (Exception ex)
+            else
             {
-                throw new Exception("Ocorreu um erro ao deletar o usuário!\n Detalhes sobre o erro : " + ex);
+                throw new Exception("Ocorreu um erro ao deletar o usuário!");
             }
         }
 
@@ -155,25 +194,92 @@ namespace DesafioTecnicoSecSaude.Usuarios.Controller
             }
         }
 
-        #region METODOS PRIVADOS
-        // Métodos de validação
-        private bool ValidarCamposCadastro(UsuarioDTO usuarioDTO)
+        #region VALIDAÇÕES
+
+        private bool ValidarCamposAtualizacao(UsuarioAtualizarDTO usuarioAtualizarDTO)
         {
-            //TODO: Adicionar validações dos campos
+            if (String.IsNullOrEmpty(usuarioAtualizarDTO.Nome))
+                return false;
+
+            if (!Validation.ValidarEmail(usuarioAtualizarDTO.Email))
+                return false;
+
+            if (!Validation.ValidarCpf(usuarioAtualizarDTO.CPF))
+                return false;
+
+            if (!Validation.ValidarData(usuarioAtualizarDTO.DataNascimento.ToString()))
+                return false;
+
+            if (String.IsNullOrEmpty(usuarioAtualizarDTO.Perfil))
+                return false;
+
+            if (!ValidarCamposEnderecoCadastro(usuarioAtualizarDTO.Endereco))
+                return false;
+
+            if (!ValidarCamposEnderecoCadastro(usuarioAtualizarDTO.Endereco))
+                return false;
+
             return true;
         }
 
-        // Preparação de campos
-        private void AtualizarCamposUsuario(ref Usuario usuarioAtual, UsuarioDTO usuarioAtualizado)
+        private bool ValidarCamposCadastro(UsuarioDTO usuarioDTO)
+        {
+            if (String.IsNullOrEmpty(usuarioDTO.Nome))
+                return false;
+
+            if (!Validation.ValidarEmail(usuarioDTO.Email))
+                return false;
+
+            if (!Validation.ValidarCpf(usuarioDTO.CPF))
+                return false;
+
+            if (String.IsNullOrEmpty(usuarioDTO.Senha))
+                return false;
+
+            if (!Validation.ValidarData(usuarioDTO.DataNascimento.ToString()))
+                return false;
+
+            if (String.IsNullOrEmpty(usuarioDTO.Perfil))
+                return false;
+
+            if (!ValidarCamposEnderecoCadastro(usuarioDTO.Endereco))
+                return false;
+
+            return true;
+        }
+
+        private bool ValidarCamposEnderecoCadastro(EnderecoDTO enderecoDTO)
+        {
+            if (String.IsNullOrEmpty(enderecoDTO.CEP))
+                return false;
+
+            if (String.IsNullOrEmpty(enderecoDTO.Logradouro))
+                return false;
+
+            if (String.IsNullOrEmpty(enderecoDTO.Numero))
+                return false;
+
+            if (String.IsNullOrEmpty(enderecoDTO.Cidade))
+                return false;
+
+            if (String.IsNullOrEmpty(enderecoDTO.Estado))
+                return false;
+
+            if (String.IsNullOrEmpty(enderecoDTO.Pais))
+                return false;
+
+            return true;
+        }
+        #endregion
+
+        #region TRATAMENTO DE CAMPOS
+        private void AtualizarCamposGeraisUsuario(ref Usuario usuarioAtual, UsuarioAtualizarDTO usuarioAtualizado)
         {
             if (!String.IsNullOrEmpty(usuarioAtualizado.Nome))
                 usuarioAtual.Nome = usuarioAtualizado.Nome;
 
             if (!String.IsNullOrEmpty(usuarioAtualizado.Email))
                 usuarioAtual.Email = usuarioAtualizado.Email;
-
-            if (!String.IsNullOrEmpty(usuarioAtualizado.Senha))
-                usuarioAtual.Senha = usuarioAtualizado.Senha;
 
             if (!String.IsNullOrEmpty(usuarioAtualizado.CPF))
                 usuarioAtual.CPF = usuarioAtualizado.CPF;
@@ -185,6 +291,30 @@ namespace DesafioTecnicoSecSaude.Usuarios.Controller
                 usuarioAtual.Perfil = usuarioAtualizado.Perfil;
 
             usuarioAtual.DataAtualizacao = DateTime.Now;
+        }
+
+        private void AtualizarCamposEnderecoUsuario(ref Usuario usuarioAtual, UsuarioAtualizarDTO usuarioAtualizado)
+        {
+            if (!String.IsNullOrEmpty(usuarioAtualizado.Endereco.CEP))
+                usuarioAtual.CEP = usuarioAtualizado.Endereco.CEP;
+
+            if (!String.IsNullOrEmpty(usuarioAtualizado.Endereco.Logradouro))
+                usuarioAtual.Logradouro = usuarioAtualizado.Endereco.Logradouro;
+
+            if (!String.IsNullOrEmpty(usuarioAtualizado.Endereco.Complemento))
+                usuarioAtual.Complemento = usuarioAtualizado.Endereco.Complemento;
+
+            if (!String.IsNullOrEmpty(usuarioAtualizado.Endereco.Numero))
+                usuarioAtual.Numero = usuarioAtualizado.Endereco.Numero;
+
+            if (!String.IsNullOrEmpty(usuarioAtualizado.Endereco.Cidade))
+                usuarioAtual.Cidade = usuarioAtualizado.Endereco.Cidade;
+
+            if (!String.IsNullOrEmpty(usuarioAtualizado.Endereco.Estado))
+                usuarioAtual.Estado = usuarioAtualizado.Endereco.Estado;
+
+            if (!String.IsNullOrEmpty(usuarioAtualizado.Endereco.Pais))
+                usuarioAtual.Pais = usuarioAtualizado.Endereco.Pais;
         }
 
         #endregion
