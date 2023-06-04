@@ -49,16 +49,31 @@ namespace DesafioTecnicoSecSaude
                         nome.Text = usuario.Nome;
                         email.Text = usuario.Email;
                         cpf.Text = usuario.CPF;
-                        senha.Text = usuario.Senha;
                         dataNascimento.Text = usuario.DataNascimento.ToString("dd/MM/yyyy");
                         dropPerfis.SelectedValue = usuario.Perfil;
+                        cep.Text = usuario.CEP;
+                        logradouro.Text = usuario.Logradouro;
+                        complemento.Text = usuario.Complemento;
+                        numero.Text = usuario.Complemento;
+                        cidade.Text = usuario.Cidade;
+                        estado.Text = usuario.Estado;
+                        pais.Text = usuario.Pais;
 
                         nome.Enabled = false;
                         email.Enabled = false;
                         cpf.Enabled = false;
-                        senha.Enabled = false;
+                        dataNascimento.Enabled = false;
                         dropPerfis.Enabled = false;
-                        endereco.Enabled = false;
+                        cep.Enabled = false;
+                        logradouro.Enabled = false;
+                        complemento.Enabled = false;
+                        numero.Enabled = false;
+                        cidade.Enabled = false;
+                        estado.Enabled = false;
+                        pais.Enabled = false;
+                        dataCriacao.Enabled = false;
+                        dataAtualizacao.Enabled = false;
+
                         dataCriacao.Text = usuario.DataCriacao.ToString("dd/MM/yyyy HH:mm");
 
                         if (usuario.Contatos != null && usuario.Contatos.Count > 0)
@@ -66,10 +81,10 @@ namespace DesafioTecnicoSecSaude
                         
                         DateTime dataPadrao = new DateTime(0001, 1, 1, 0, 0, 0);
 
-                        if (usuario.DataAtualizacao != dataPadrao)
-                            dataAtualizacao.Text = (usuario.DataAtualizacao.HasValue) ? usuario.DataAtualizacao.Value.ToString("dd/MM/yyyy HH:mm") : "N/A";   
-                        else
-                            dataAtualizacao.Text = "N/A";
+                        //if (usuario.DataAtualizacao != dataPadrao)
+                        //    dataAtualizacao.Text = (usuario.DataAtualizacao.HasValue) ? usuario.DataAtualizacao.Value.ToString("dd/MM/yyyy HH:mm") : "N/A";   
+                        //else
+                        //    dataAtualizacao.Text = "N/A";
                     }
                     else
                     {

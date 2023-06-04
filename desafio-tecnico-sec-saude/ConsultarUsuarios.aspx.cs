@@ -36,10 +36,34 @@ namespace DesafioTecnicoSecSaude
                 if (!String.IsNullOrEmpty(usuarioId))
                     this.Response.Redirect("DetalharUsuario.aspx?usuarioId=" + usuarioId);
             }
+
+            if (e.CommandName.Equals("Deletar"))
+            {
+                string usuarioId = e.CommandArgument.ToString();
+                if (!String.IsNullOrEmpty(usuarioId))
+                {
+                    RemoverUsuario(usuarioId);
+                    this.Response.Redirect("ConsultarUsuarios.aspx");
+                }
+                    
+            }
         }
         protected void CadastroUsuario_Click(object sender, EventArgs e)
         {
             this.Response.Redirect("CadastrarUsuario.aspx");
+        }
+
+        private void RemoverUsuario(string usuarioId)
+        {
+            try
+            {
+                UsuarioController controller = new UsuarioController();
+                controller.Deletar(Convert.ToInt32(usuarioId));
+            }
+            catch (Exception)
+            {
+                ScriptManager.RegisterStartupScript(this, GetType(), "ErroRemoverUsuario", "Swal.fire('Erro ao remover!', 'Ocorreu um erro durante o processamento das informações!', 'error');", true);
+            }
         }
     }
 }

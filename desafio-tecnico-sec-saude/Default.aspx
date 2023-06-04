@@ -5,36 +5,35 @@
     <div class="jumbotron">
         <h1>Desafio Técnico - CRUD .NET</h1>
         <p class="lead">Avaliação Técnica - Criação de Aplicação Web + Integração com Banco de Dados com .NET.</p>
-        <p><a href="http://www.asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+        <p><a href="https://github.com/cerqueirav/desafio-tecnico-sec-saude" class="btn btn-primary btn-lg">Saiba mais &raquo;</a></p>
     </div>
 
     <div class="row">
         <div class="col-md-4">
-            <h2>Getting started</h2>
+            <h2>Repositório</h2>
             <p>
-                ASP.NET Web Forms lets you build dynamic websites using a familiar drag-and-drop, event-driven model.
-            A design surface and hundreds of controls and components let you rapidly build sophisticated, powerful UI-driven sites with data access.
+                O projeto foi versionado com o uso do GitHub e encontra-se disponível para consulta e sugestões de melhorias.
             </p>
             <p>
-                <a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301948">Learn more &raquo;</a>
-            </p>
-        </div>
-        <div class="col-md-4">
-            <h2>Get more libraries</h2>
-            <p>
-                NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.
-            </p>
-            <p>
-                <a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301949">Learn more &raquo;</a>
+                <a class="btn btn-default" href="https://github.com/cerqueirav/desafio-tecnico-sec-saude">Acessar&raquo;</a>
             </p>
         </div>
         <div class="col-md-4">
-            <h2>Web Hosting</h2>
+            <h2>Tecnologias utilizadas</h2>
             <p>
-                You can easily find a web hosting company that offers the right mix of features and price for your applications.
+                Para a construção do projeto foi utilizado: WebForms, NHibernate, SQL Server Database entre outras.
             </p>
             <p>
-                <a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301950">Learn more &raquo;</a>
+                <a class="btn btn-default" href="https://github.com/cerqueirav/desafio-tecnico-sec-saude#readme">Saiba mais &raquo;</a>
+            </p>
+        </div>
+        <div class="col-md-4">
+            <h2>Testes</h2>
+            <p>
+               A validação do projeto ocorreu por meio da criação e execução de testes unitários.
+            </p>
+            <p>
+                <a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301948">Saiba mais&raquo;</a>
             </p>
         </div>
     </div>
