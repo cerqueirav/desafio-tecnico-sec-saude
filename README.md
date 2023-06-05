@@ -31,3 +31,6 @@ Siga as etapas abaixo para configurar e executar o projeto:
 - Compile o projeto para garantir que não haja erros de compilação.
 - Execute o projeto pressionando F5 ou usando a opção "Executar" na sua IDE.
 - O projeto será executado em um servidor local e poderá ser acessado por meio do navegador no endereço https://localhost:44350.
+
+## Apresentação do Projeto
+A apresentação do projeto pode ser acessada através do link a seguir: https://www.youtube.com/watch?v=CrW_6DVwydc. Nesse vídeo, você encontrará uma descrição detalhada do projeto, incluindo seu funcionamento, características principais e benefícios.
