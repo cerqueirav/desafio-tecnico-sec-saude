@@ -78,8 +78,8 @@ namespace DesafioTecnicoSecSaude.Utils
 
         public static bool ValidarContato(string contato)
         {
-            string pattern = @"^\d+$";
-            return Regex.IsMatch(contato, pattern);
+            var strContato = contato.Replace("(", "").Replace(")", "").Replace("-", "").Replace("_", "");
+            return (strContato.Length.Equals(11));
         }
 
         public static bool ValidarSenha(string senha)

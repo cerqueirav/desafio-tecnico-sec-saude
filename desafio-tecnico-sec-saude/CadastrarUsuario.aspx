@@ -2,6 +2,10 @@
 <%@ Import Namespace="DesafioTecnicoSecSaude.Usuarios.Model" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.6/jquery.inputmask.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+
     <div class="container">
         <hr />
         <h3 class="my-3">Cadastro de Usuário</h3> 
@@ -32,7 +36,7 @@
             <div class="col-md-6">
                 <div class="form-group">
                     <label for="cpf">CPF</label>
-                    <asp:TextBox class="form-control" type="text" ID="cpf" runat="server"></asp:TextBox>
+                    <asp:TextBox class="form-control mask-cpf" type="text" ID="cpf" runat="server"></asp:TextBox>
                     <asp:Label ID="cpfErro" runat="server" Text="" ForeColor="Red" Font-Size="Small"></asp:Label>
                 </div>
             </div>
@@ -113,7 +117,7 @@
             <div class="col-md-3">
                 <div class="form-group">
                     <label for="contato">Contato</label>
-                    <asp:TextBox class="form-control" type="text" ID="contato" runat="server"></asp:TextBox>
+                    <asp:TextBox class="form-control mask-telefone" type="text" ID="contato" runat="server"></asp:TextBox>
                     <asp:Label ID="contatoErro" runat="server" Text="" ForeColor="Red" Font-Size="Small"></asp:Label>
                 </div>
             </div>
@@ -131,7 +135,7 @@
             <div class="col-md-6">
                 <div class="form-group">
                     <label for="cep">CEP</label>
-                    <asp:TextBox ID="cep" CssClass="form-control" runat="server"  OnTextChanged="carregarEndereco" AutoPostBack="true" ></asp:TextBox>
+                    <asp:TextBox ID="cep" CssClass="form-control mask-cep" runat="server"  OnTextChanged="carregarEndereco" AutoPostBack="true" ></asp:TextBox>
                     <asp:Label ID="cepErro" runat="server" Text="" ForeColor="Red" Font-Size="Small"></asp:Label>
                 </div>
                 <div class="form-group">
@@ -168,7 +172,15 @@
         </div>
 
         <div class="col-md-12" style="padding:unset">
-            <asp:Button ID="EnviarCadastro" runat="server" Text="Enviar" CssClass="btn btn-success bg-success w-100 mt-2 mb-4"  OnClick="CadastrarUsuario_Click" />
+            <asp:Button ID="EnviarCadastro" runat="server" Text="Salvar" CssClass="btn btn-success bg-success w-100 mt-2 mb-4"  OnClick="CadastrarUsuario_Click" />
         </div>
     </div>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.mask-cpf').inputmask('999.999.999-99');
+            $('.mask-telefone').inputmask('(99) 9999-9999');
+            $('.mask-cep').mask('00000-000');
+        });
+    </script>
 </asp:Content>

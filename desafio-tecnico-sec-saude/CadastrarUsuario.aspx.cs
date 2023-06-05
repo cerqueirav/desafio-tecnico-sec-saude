@@ -259,6 +259,11 @@ namespace DesafioTecnicoSecSaude
                 cepErro.Text = "Informe o CEP";
                 temDivergencia = true;
             }
+            else if (!Validation.ValidarCep(cep.Text))
+            {
+                cepErro.Text = "O CEP informado é inválido!";
+                temDivergencia = true;
+            }
             else if (cep.Text.Length > 100)
             {
                 cepErro.Text = "O CEP deve ter no máximo 100 caracteres";
